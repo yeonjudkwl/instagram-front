@@ -1,12 +1,13 @@
 <template>
-    <div>
-        <h1>Instagram</h1>
-    </div>
+  <div>
+    <h1>login</h1>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'Home'
+  name: 'Login',
+
 }
 </script>
 

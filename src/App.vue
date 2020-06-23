@@ -12,6 +12,8 @@
 <script>
 import axios from 'axios'
 
+const URL = 'http://127.0.0.1:8000/rest-auth'
+
 export default {
   name: 'App',
   data () {
@@ -27,7 +29,7 @@ export default {
     signup (signupData) {
       // console.log('signup')
       // console.log(signupData)
-      axios.post('http://localhost:8000/rest-auth/signup', signupData)
+      axios.post(`${URL}/signup`, signupData)
         .then(res => {
           this.setCookie(res.data.key)
           this.$router.push({ name: 'Home' })
@@ -37,7 +39,7 @@ export default {
     login (loginData) {
       // console.log('login')
       // console.log(loginData)
-      axios.post('http://localhost:8000/rest-auth/login', loginData)
+      axios.post(`${URL}/login`, loginData)
         .then(res => {
           this.setCookie(res.data.key)
           this.$router.push({ name: 'Home' })
@@ -50,7 +52,7 @@ export default {
                 Authorization: `Token ${this.$cookies.get('auth-token')}`
               }
           }
-      axios.post('http://localhost:8000/rest-auth/logout/', null, config)
+      axios.post(`${URL}/logout/`, null, config)
         .then( () => {
           this.$cookies.remove('auth-token')
           this.isLoggedIn = false
@@ -67,10 +69,21 @@ export default {
 
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(250, 250, 250);
   text-align: center;
   color: #2c3e50;
 }
@@ -86,5 +99,48 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+.a11y-hidden {
+ overflow: hidden;
+ position: absolute !important;
+ top: -9999em;
+ clip: rect(0, 0, 0, 0);
+ width: 1px;
+ height: 1px;
+ margin: -1px;
+}
+/* accounts css */
+.accounts-logo{
+  width: 65%;
+  margin: 5px 0 25px;
+}
+.accounts-input{
+  width: 80%;
+  margin: 5px;
+  padding: 3px;
+  line-height: 2.5;
+  border: 1px solid rgba(219, 219, 219);
+  border-radius: 4px;
+  background: rgba(250, 250, 250);
+}
+.accounts-btn{
+  width: 80%;
+  margin: 5px;
+  margin-top: 10px;
+  padding: 3px;
+  line-height: 2.5;
+  border: none;
+  border-radius: 4px;
+  background: rgba(90, 170, 255);
+  color: rgba(255, 255, 255);
+}
+.accounts-btn:hover {
+  cursor: pointer;
+  background: rgb(53, 150, 255);
+}
+.accounts-text{
+  margin-left: 5px;
+  font-weight: bold;
+  color: rgb(53, 150, 255);
 }
 </style>

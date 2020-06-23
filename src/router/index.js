@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import SignUp from '../views/SignUp.vue'
-import Login from '../views/Login.vue'
+import SignUp from '../views/accounts/SignUp.vue'
+import Login from '../views/accounts/Login.vue'
 
 Vue.use(VueRouter)
 
@@ -13,12 +13,12 @@ Vue.use(VueRouter)
     component: Home
   },
   {
-    path: '/signup',
+    path: '/accounts/signup',
     name: 'SignUp',
     component: SignUp
   },
   {
-    path: '/login',
+    path: '/accounts/login',
     name: 'Login',
     component: Login
   },

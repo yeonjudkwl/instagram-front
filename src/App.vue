@@ -27,19 +27,21 @@ export default {
       this.isLoggedIn = true
     },
     signup (signupData) {
-      // console.log('signup')
+      console.log('signup')
       // console.log(signupData)
-      axios.post(`${URL}/signup`, signupData)
+      axios.post(`${URL}/registration/`, signupData)
         .then(res => {
+          console.log("===============")
+          console.log(res.data.key)
           this.setCookie(res.data.key)
           this.$router.push({ name: 'Home' })
         })
         .catch(err => console.log(err.response.data))
     },
     login (loginData) {
-      // console.log('login')
+      console.log('login')
       // console.log(loginData)
-      axios.post(`${URL}/login`, loginData)
+      axios.post(`${URL}/login/`, loginData)
         .then(res => {
           this.setCookie(res.data.key)
           this.$router.push({ name: 'Home' })

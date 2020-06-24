@@ -6,7 +6,7 @@
       <router-link :to="{ name: 'Login' }">Login</router-link> |
       <router-link @click.native="logout" to="/accounts/logout">Logout</router-link>
     </div>
-    <router-view  @signup-data="signup" @login-data="login"/>
+    <router-view  @signup-data="signup"/>
   </div>
 </template>
 <script>
@@ -33,16 +33,6 @@ export default {
         .then(res => {
           console.log("===============")
           console.log(res.data.key)
-          this.setCookie(res.data.key)
-          this.$router.push({ name: 'Home' })
-        })
-        .catch(err => console.log(err.response.data))
-    },
-    login (loginData) {
-      console.log('login')
-      // console.log(loginData)
-      axios.post(`${URL}/login/`, loginData)
-        .then(res => {
           this.setCookie(res.data.key)
           this.$router.push({ name: 'Home' })
         })

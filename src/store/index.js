@@ -26,21 +26,28 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    login ({ commit }, loginData) {
-      axios.post(SERVER.URL + SERVER.ROUTES.login, loginData)
+    postAuthData({ commit }, payload) {
+      axios.post(SERVER.URL + payload.location, payload.data)
         .then(res => {
           commit('SET_TOKEN', res.data.key)
           router.push({ name: 'Home' })
         })
         .catch(err => console.log(err.response.data))
     },
-    signup ({ commit }, signupData) {
-      axios.post(SERVER.URL + SERVER.ROUTES.signup, signupData)
-        .then(res => {
-          commit('SET_TOKEN', res.data.key)
-          router.push({ name: 'Home' })
-        })
-        .catch(err => console.log(err.response.data))
+    login ({ dispatch }, loginData) {
+      const info = {
+        data: loginData,
+        location:  SERVER.ROUTES.login
+      }
+      // 두번째 인자까지만 가능. 따라서 info 객체로 만듦.
+      dispatch('postAuthData', info)
+    },
+    signup ({ dispatch }, signupData) {
+      const info = {
+        data: signupData,
+        location:  SERVER.ROUTES.signup
+      }
+      dispatch('postAuthData')
     },
   },
   modules: {

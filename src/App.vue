@@ -12,20 +12,9 @@
 <script>
 import axios from 'axios'
 
-const URL = 'http://127.0.0.1:8000/rest-auth'
-
 export default {
   name: 'App',
-  data () {
-    return {
-      isLoggedIn: false
-    }
-  },
   methods: {
-    setCookie(token) {
-      this.$cookies.set('auth-token', token)
-      this.isLoggedIn = true
-    },
     logout () {
       const config = {
         headers: {

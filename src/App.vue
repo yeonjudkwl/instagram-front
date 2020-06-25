@@ -2,40 +2,23 @@
   <div id="app">
     <div id="nav">
       <router-link :to="{ name: 'Home' }">Home</router-link> |
-      <router-link :to="{ name: 'SignUp' }">SignUp</router-link> |
-      <router-link :to="{ name: 'Login' }">Login</router-link> |
-      <router-link @click.native="logout" to="/accounts/logout">Logout</router-link>
+      <router-link v-if="!isLoggedIn" :to="{ name: 'SignUp' }">SignUp</router-link> |
+      <router-link v-if="!isLoggedIn" :to="{ name: 'Login' }">Login</router-link> |
+      <router-link v-if="isLoggedIn"  :to="{ name: 'Logout' }">Logout</router-link>
     </div>
     <router-view/>
   </div>
 </template>
 <script>
-import axios from 'axios'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'App',
-  methods: {
-    logout () {
-      const config = {
-        headers: {
-                Authorization: `Token ${this.$cookies.get('auth-token')}`
-              }
-          }
-      axios.post(`${URL}/logout/`, null, config)
-        .then( () => {
-          this.$cookies.remove('auth-token')
-          this.isLoggedIn = false
-          this.$router.push({ name: 'Home' })
-        })
-        .catch(err => console.log(err.response.data))
-    }
-  },
-  created () {
-    this.isLoggedIn = this.$cookies.isKey('auth-token')
+  computed: {
+    ...mapGetters(['isLoggedIn'])
   },
 }
 </script>
-
 
 <style>
 * {

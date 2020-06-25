@@ -34,20 +34,29 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err.response.data))
     },
-    login ({ dispatch }, loginData) {
-      const info = {
-        data: loginData,
-        location:  SERVER.ROUTES.login
-      }
-      // 두번째 인자까지만 가능. 따라서 info 객체로 만듦.
-      dispatch('postAuthData', info)
-    },
     signup ({ dispatch }, signupData) {
       const info = {
         data: signupData,
         location:  SERVER.ROUTES.signup
       }
+      // 두번째 인자까지만 가능. 따라서 info 객체로 만듦.
       dispatch('postAuthData', info)
+    },
+    login ({ dispatch }, loginData) {
+      const info = {
+        data: loginData,
+        location:  SERVER.ROUTES.login
+      }
+      dispatch('postAuthData', info)
+    },
+    logout ({ getters, commit }) {
+      axios.post(SERVER.URL + SERVER.ROUTES.logout, null, getters.config)
+        .then( () => {
+          commit('SET_TOKEN', null)
+          cookies.remove('auth-token')
+          router.push({ name: 'Home' })
+        })
+        .catch(err => console.log(err.response.data))
     },
   },
   modules: {

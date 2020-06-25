@@ -4,7 +4,9 @@
       <router-link :to="{ name: 'Home' }">Home</router-link> |
       <router-link v-if="!isLoggedIn" :to="{ name: 'SignUp' }">SignUp</router-link> |
       <router-link v-if="!isLoggedIn" :to="{ name: 'Login' }">Login</router-link> |
-      <router-link v-if="isLoggedIn"  :to="{ name: 'Logout' }">Logout</router-link>
+      <router-link v-if="isLoggedIn"  :to="{ name: 'Logout' }">Logout</router-link> |
+      <router-link v-if="isLoggedIn" :to="{ name: 'FeedCreate' }">FeedCreate</router-link> |
+      <router-link :to="{ name: 'FeedList' }">FeedList</router-link> |
     </div>
     <router-view/>
   </div>

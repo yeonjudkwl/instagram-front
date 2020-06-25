@@ -1,9 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+// accounts
 import SignUp from '../views/accounts/SignUp.vue'
 import Login from '../views/accounts/Login.vue'
 import Logout from '../views/accounts/Logout.vue'
+// Feed
+import FeedList from '../views/articles/FeedList.vue'
+import FeedCreate from '../views/articles/FeedCreate.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +31,16 @@ Vue.use(VueRouter)
     path: '/accounts/logout',
     name: 'Logout',
     component: Logout
+  },
+  {
+    path: '/articles/create',
+    name: 'FeedCreate',
+    component: FeedCreate
+  },
+  {
+    path: '/articles',
+    name: 'FeedList',
+    component: FeedList
   },
 ]
 

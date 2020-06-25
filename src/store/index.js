@@ -33,7 +33,15 @@ export default new Vuex.Store({
           router.push({ name: 'Home' })
         })
         .catch(err => console.log(err.response.data))
-    }
+    },
+    signup ({ commit }, signupData) {
+      axios.post(SERVER.URL + SERVER.ROUTES.signup, signupData)
+        .then(res => {
+          commit('SET_TOKEN', res.data.key)
+          router.push({ name: 'Home' })
+        })
+        .catch(err => console.log(err.response.data))
+    },
   },
   modules: {
   }

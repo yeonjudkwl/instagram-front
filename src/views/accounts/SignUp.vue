@@ -15,7 +15,7 @@
         <label for="password2" class="a11y-hidden">password2: </label>
         <input v-model="signupData.password2" type="password" id="password2" placeholder="비밀번호 확인" class="accounts-input">
       </div>
-      <button @click="signup" class="accounts-btn">회원가입</button>
+      <button @click="signup(signupData)" class="accounts-btn">회원가입</button>
     </div>
     <div class="login-wrap">
       <p>계정이 없으신가요? <router-link :to="{ name: 'Login' }"><span class="accounts-text">로그인</span></router-link></p>
@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'SignUp',
   data () {
@@ -36,9 +38,7 @@ export default {
     }
   },
   methods: {
-    signup () {
-      this.$emit('signup-data', this.signupData)
-    }
+    ...mapActions(['signup'])
   },
 }
 </script>

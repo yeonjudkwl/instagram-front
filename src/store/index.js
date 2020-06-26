@@ -17,7 +17,11 @@ export default new Vuex.Store({
     isLoggedIn: state => !!state.authToken,
     config: state => ({ headers: {
       Authorization: `Token ${state.authToken}`
-    } })
+    } }),
+    imgConfig: state => ({ headers: {
+      Authorization: `Token ${state.authToken}`,
+      'Content-Type': 'multipart/form-data'
+    } }),
   },
   mutations: {
     SET_TOKEN (state, payload) {
@@ -57,6 +61,20 @@ export default new Vuex.Store({
           router.push({ name: 'Home' })
         })
         .catch(err => console.log(err.response.data))
+    },
+    // articles
+    create ({ getters }, feedData) {
+      const formdata = new FormData()
+      formdata.append('content', feedData.content)
+      formdata.append('image', feedData.file)
+      // console.log(formdata.get('content'))
+      // console.log(formdata.getAll('image'))
+
+      axios.post(SERVER.URL + SERVER.ROUTES.feeds, formdata, getters.imgConfig) 
+        .then( () => { 
+          router.push({ name: 'FeedList' })
+        }) 
+        .catch(err => { console.log('사진업로드 실패', err) });
     },
   },
   modules: {

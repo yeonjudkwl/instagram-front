@@ -11,7 +11,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    authToken: cookies.get('auth-token')
+    authToken: cookies.get('auth-token'),
+    feeds: null,
   },
   getters: {
     isLoggedIn: state => !!state.authToken,
@@ -27,7 +28,10 @@ export default new Vuex.Store({
     SET_TOKEN (state, payload) {
       state.authToken = payload
       cookies.set('auth-token', payload)
-    }
+    },
+    SET_FEEDS (state, payload) {
+      state.feeds = payload
+    },
   },
   actions: {
     postAuthData({ commit }, payload) {
@@ -75,6 +79,13 @@ export default new Vuex.Store({
           router.push({ name: 'FeedList' })
         }) 
         .catch(err => { console.log('사진업로드 실패', err) });
+    },
+    fetchFeeds ({ commit }) {
+      axios.get(SERVER.URL + SERVER.ROUTES.feeds) 
+      .then(res => {
+        commit('SET_FEEDS', res.data)
+      }) 
+      .catch(err => { console.log(err.response.data) });
     },
   },
   modules: {

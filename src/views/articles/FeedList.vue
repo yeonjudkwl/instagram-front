@@ -34,7 +34,7 @@ export default {
   justify-content: center;
   align-items: flex-start;
   margin-top: 50px;
-  padding: 0 290px;
+  padding: 0 23%;
 }
 .conA{
   flex: 2;
@@ -55,6 +55,12 @@ export default {
 @media screen and (max-width: 1000px) {
   .conB{
     display: none;
+  }
+}
+@media screen and (max-width: 700px) {
+  .conA .con{
+      margin: 0 auto 50px;
+      width: 450px;
   }
 }
 </style>

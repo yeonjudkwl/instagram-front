@@ -1,7 +1,13 @@
 <template>
   <div>
-    <input v-model="feedData.content" type="text"><br>
-    <input type="file" ref="feedimage" @change="fetchFile"><br>
+    <div>
+      <label for="content" class="a11y-hidden">content: </label>
+      <input v-model="feedData.content" type="text" id="content">
+    </div>
+    <div>
+      <label for="image" class="a11y-hidden">image: </label>
+      <input type="file" ref="feedimage" @change="fetchFile" id="image">
+    </div>
     <button @click="create(feedData)">upload</button>
   </div>
 </template>

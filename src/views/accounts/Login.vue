@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="accounts-bg">
     <h1 class="a11y-hidden">login</h1>
     <div class="login-wrap">
       <img src="@/assets/images/instagram.png" class="accounts-logo"/>
@@ -9,7 +9,7 @@
       </div>
       <div>
         <label for="password" class="a11y-hidden">password: </label>
-        <input v-model="loginData.password" type="password" id="password" placeholder="비밀번호" class="accounts-input">
+        <input @keyup.enter="login(loginData)" v-model="loginData.password" type="password" id="password" placeholder="비밀번호" class="accounts-input">
       </div>
       <button @click="login(loginData)" class="accounts-btn">로그인</button>
     </div>

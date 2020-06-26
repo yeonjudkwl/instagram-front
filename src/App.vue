@@ -58,6 +58,16 @@ export default {
  margin: -1px;
 }
 /* accounts css */
+.accounts-bg{
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(250, 250, 250);
+  text-align: center;
+  color: #2c3e50;
+}
 .accounts-logo{
   width: 65%;
   margin: 5px 0 25px;

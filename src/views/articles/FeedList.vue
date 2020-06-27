@@ -1,9 +1,9 @@
 <template>
-  <div class="con_wrap">
-    <div class="conA">
-      <Feed class="con" :feed="feed" v-for="feed in $store.state.feeds" :key="feed.id"/>
+  <div class="feed-list-wrap">
+    <div class="feed-list">
+      <Feed class="feed" :feed="feed" v-for="feed in $store.state.feeds" :key="feed.id"/>
     </div>
-    <div class="conB">
+    <div class="sub-feed">
         
     </div>
   </div>
@@ -29,36 +29,36 @@ export default {
 </script>
 
 <style scoped>
-.con_wrap{
+.feed-list-wrap{
   display: flex;
   justify-content: center;
   align-items: flex-start;
   margin-top: 50px;
   padding: 0 23%;
 }
-.conA{
+.feed-list{
   flex: 2;
   margin: 10px 0;
 }
-.conA .con{
+.feed-list .feed{
   width: 600px;
   margin-bottom: 50px;
   border: 1px solid #DBDBDB;
   border-radius: 3px;
   background-color: #ffffff;
 }
-.conB{
+.sub-feed{
   flex: 1;
   position: sticky;
   top: 50px;
 }
 @media screen and (max-width: 1000px) {
-  .conB{
+  .sub-feed{
     display: none;
   }
 }
 @media screen and (max-width: 700px) {
-  .conA .con{
+  .feed-list .feed{
       margin: 0 auto 50px;
       width: 450px;
   }

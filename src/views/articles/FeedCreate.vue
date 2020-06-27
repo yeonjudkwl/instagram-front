@@ -1,14 +1,17 @@
 <template>
-  <div>
-    <div>
-      <label for="content" class="a11y-hidden">content: </label>
-      <input v-model="feedData.content" type="text" id="content">
+  <div class="feed-create-wrap">
+    <div class="feed-create">
+      <h2 class="feed-create-title">Feed Upload</h2>
+      <div class="feed-create-content">
+        <label for="content" class="a11y-hidden">content: </label>
+        <input v-model="feedData.content" type="text" id="content" placeholder="내용을 입력하세요">
+      </div>
+      <div class="feed-create-file">
+        <label for="image" class="a11y-hidden">image: </label>
+        <input type="file" ref="feedimage" @change="fetchFile" id="image">
+      </div>
+      <button class="feed-create-btn" @click="create(feedData)"><i class="fas fa-cloud-upload-alt fa-2x"></i></button>
     </div>
-    <div>
-      <label for="image" class="a11y-hidden">image: </label>
-      <input type="file" ref="feedimage" @change="fetchFile" id="image">
-    </div>
-    <button @click="create(feedData)">upload</button>
   </div>
 </template>
 
@@ -34,6 +37,59 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.feed-create-wrap{
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(250, 250, 250);
+  text-align: center;
+  color: #2c3e50;
+}
+.feed-create {
+  width: 450px;
+  height: 500px;
+  margin-top: 50px;
+  background: rgba(255, 255, 255, .8);
+  border: 5px solid rgba(255, 255, 255);
+  border-radius: 5px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, .5);
+  position: relative;
+}
+.feed-create-title {
+  margin: 30px 0;
+  font-style: italic;
+}
+.feed-create-content input{
+  width: 90%;
+  margin: 10px 0;
+  padding: 10px;
+  line-height: 1.5;
+  background: rgba(250, 250, 250);
+  border: 1px solid rgb(182, 181, 181);
+  border-radius: 5px;
+}
+.feed-create-content input:focus {
+  outline: none;
+}
+.feed-create-file input{
+  width: 90%;
+  margin: 10px 0;
+}
+.feed-create-btn {
+  border:none;
+  background: none;
+  position: absolute;
+  bottom: 50px;
+  cursor: pointer;
+}
+.feed-create-btn i{
+  color: rgba(90, 170, 255);
+}
+.feed-create-btn i:hover{
+  transform: scale(1.3);
+  color: rgb(53, 150, 255);
+}
 </style>

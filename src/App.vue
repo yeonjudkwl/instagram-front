@@ -104,6 +104,9 @@ export default {
   cursor: pointer;
   background: rgb(53, 150, 255);
 }
+.accounts-input:focus, .accounts-btn:focus{
+  outline: none;
+}
 .accounts-text{
   margin-left: 5px;
   font-weight: bold;

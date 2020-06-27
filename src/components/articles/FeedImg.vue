@@ -2,7 +2,7 @@
   <div>
     <div class="title">
       <img src="@/assets/images/hong.png" alt="profile-image" class="img">
-      <p>{{ feed.user.username }}</p>
+      <p @click="fetchUserInfo(feed.user.username)">{{ feed.user.username }}</p>
     </div>
     <img :src="url" alt="feed-image" class="con_img">
   </div>
@@ -10,6 +10,7 @@
 
 <script>
 import SERVER from '@/api/drf'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'FeedImg',
@@ -21,6 +22,9 @@ export default {
       const img = this.feed.images[0].image
       return SERVER.URL + img
     }
+  },
+  methods: {
+    ...mapActions(['fetchUserInfo'])
   },
 }
 </script>
@@ -39,6 +43,7 @@ export default {
 .title p{
   margin: 0 15px;
   font-size: 20px;
+  cursor: pointer;
 }
 .con_img{
   width: 100%;

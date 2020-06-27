@@ -5,6 +5,7 @@ import Home from '../views/Home.vue'
 import SignUp from '../views/accounts/SignUp.vue'
 import Login from '../views/accounts/Login.vue'
 import Logout from '../views/accounts/Logout.vue'
+import Profile from '../views/accounts/Profile.vue'
 // Feed
 import FeedList from '../views/articles/FeedList.vue'
 import FeedCreate from '../views/articles/FeedCreate.vue'
@@ -33,6 +34,11 @@ Vue.use(VueRouter)
     component: Logout
   },
   {
+    path: '/accounts/:username',
+    name: 'Profile',
+    component: Profile
+  },
+  {
     path: '/articles/create',
     name: 'FeedCreate',
     component: FeedCreate
@@ -55,7 +61,7 @@ router.beforeEach((to, from, next) => {
   // const publicPages = ['Login', 'Signup' ,'Home', 'List']
 
   // 로그인 해야함
-  const authRequired = ['Logout', 'FeedCreate'].includes(to.name)
+  const authRequired = ['Logout', 'FeedCreate','Profile'].includes(to.name)
   // 로그인 해서는 안 됨
   const unauthRequired = ['Login', 'Signup'].includes(to.name)
   const isLoggedIn = Vue.$cookies.isKey('auth-token')

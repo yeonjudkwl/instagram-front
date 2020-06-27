@@ -4,7 +4,7 @@
     <FeedLogo />
     <div class="content">
         <p class="content-like">좋아요 80개</p>
-        <p><a href="" class="user">{{ feed.user.username }}</a>{{ feed. content }}</p>
+        <p><span @click="fetchUserInfo(feed.user.username)" class="user">{{ feed.user.username }}</span>{{ feed. content }}</p>
         <FeedComment />
     </div>    
   </div>
@@ -14,6 +14,7 @@
 import FeedImg from '@/components/articles/FeedImg.vue'
 import FeedLogo from '@/components/articles/FeedLogo.vue'
 import FeedComment from '@/components/articles/FeedComment.vue'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Feed',
@@ -24,6 +25,9 @@ export default {
   },
   props: {
     feed: Object,
+  },
+  methods: {
+    ...mapActions(['fetchUserInfo'])
   },
 }
 </script>
@@ -40,5 +44,6 @@ export default {
 }
 .user {
   margin-right: 10px;
+  cursor: pointer;
 }
 </style>

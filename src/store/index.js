@@ -13,6 +13,8 @@ export default new Vuex.Store({
   state: {
     authToken: cookies.get('auth-token'),
     feeds: null,
+    username: null,
+    userInfo: null,
   },
   getters: {
     isLoggedIn: state => !!state.authToken,
@@ -29,15 +31,22 @@ export default new Vuex.Store({
       state.authToken = payload
       cookies.set('auth-token', payload)
     },
+    SET_USERNAME (state, payload) {
+      state.username = payload
+    },
     SET_FEEDS (state, payload) {
       state.feeds = payload
     },
+    SET_USERINFO (state, payload) {
+      state.userInfo = payload
+    }
   },
   actions: {
     postAuthData({ commit }, payload) {
       axios.post(SERVER.URL + payload.location, payload.data)
         .then(res => {
           commit('SET_TOKEN', res.data.key)
+          commit('SET_USERNAME', payload.data.username)
           router.push({ name: 'Home' })
         })
         .catch(err => console.log(err.response.data))
@@ -66,13 +75,19 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err.response.data))
     },
+    fetchUserInfo ({ commit }, username) {
+      axios.get(SERVER.URL + `/accounts/${username}/`) 
+        .then( res => {
+          commit('SET_USERINFO', res.data)
+          router.push({ name: 'Profile' })
+        })
+        .catch( err => console.log(err.response.data))
+    },
     // articles
     create ({ getters }, feedData) {
       const formdata = new FormData()
       formdata.append('content', feedData.content)
       formdata.append('image', feedData.file)
-      // console.log(formdata.get('content'))
-      // console.log(formdata.getAll('image'))
 
       axios.post(SERVER.URL + SERVER.ROUTES.feeds, formdata, getters.imgConfig) 
         .then( () => { 
@@ -82,10 +97,10 @@ export default new Vuex.Store({
     },
     fetchFeeds ({ commit }) {
       axios.get(SERVER.URL + SERVER.ROUTES.feeds) 
-      .then(res => {
-        commit('SET_FEEDS', res.data)
-      }) 
-      .catch(err => { console.log(err.response.data) });
+        .then(res => {
+          commit('SET_FEEDS', res.data)
+        }) 
+        .catch(err => { console.log(err.response.data) });
     },
   },
   modules: {

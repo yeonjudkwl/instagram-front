@@ -22,7 +22,18 @@
       </div>
       <hr>
       <div class="profile-feeds">
-
+        <div class="profile-feed">
+          <img src="@/assets/logo.png" alt="">
+        </div>
+        <div class="profile-feed">
+          <img src="@/assets/logo.png" alt="">
+        </div>
+        <div class="profile-feed">
+          <img src="@/assets/logo.png" alt="">
+        </div>
+        <div class="profile-feed">
+          <img src="@/assets/logo.png" alt="">
+        </div>
       </div>
     </div>
   </div>
@@ -43,7 +54,6 @@ export default {
 
 <style>
 .profile-wrap {
-  height: 80vh;
   display: flex;
   flex-direction: column;
   background: rgba(250, 250, 250);
@@ -95,5 +105,28 @@ export default {
 hr {
   width: 70%;
   margin: 0 auto;
+}
+.profile-feeds{
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+.profile-feed{
+  width: 200px;
+  margin: 13px;
+}
+.profile-feed img{
+  width: 100%;
+}
+@media screen and (max-width: 1000px) {
+  .profile-feed{
+    flex: 25%;
+    margin: 4%;
+  }
+  .profile-feed img{
+    width: 100%;
+  }
 }
 </style>

@@ -1,10 +1,10 @@
 <template>
   <div>
     <FeedImg :feed="feed"/>
-    <FeedLogo />
+    <FeedLogo :feed="feed"/>
     <div class="content">
-        <p class="content-like">좋아요 80개</p>
-        <p><span @click="fetchUserInfo(feed.user.username)" class="user">{{ feed.user.username }}</span>{{ feed. content }}</p>
+        <p class="content-like">좋아요 {{ feed.like_count }}개</p>
+        <p><span @click="fetchUserInfo(feed.user.username)" class="user">{{ feed.user.username }}</span>{{ feed.content }}</p>
         <FeedComment />
     </div>    
   </div>

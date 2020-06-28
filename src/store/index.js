@@ -119,7 +119,22 @@ export default new Vuex.Store({
           // router.push({ name: 'Profile', params: {username: username} })
         })
         .catch(err => console.log(err.response.data))
-    }
+    },
+    // like
+    like ({ getters }, feedId) {
+      axios.post(SERVER.URL + `/articles/${feedId}/like/`, null, getters.config)
+        .then( () => {
+          console.log('like')
+        })
+        .catch(err => console.log(err.response.data))
+    },
+    unlike ({ getters }, feedId) {
+      axios.post(SERVER.URL + `/articles/${feedId}/unlike/`, null, getters.config)
+        .then( () => {
+          console.log('unlike')
+        })
+        .catch(err => console.log(err.response.data))
+    },
   },
   modules: {
   }

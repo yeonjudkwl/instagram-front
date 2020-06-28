@@ -24,7 +24,10 @@ export default {
     feed: Object,
   },
   methods: {
-    ...mapActions(['like', 'unlike']),
+    ...mapActions(['like', 'unlike','fetchLikeUser']),
+  },
+  created () {
+    this.fetchLikeUser(this.feed.id)
   }
 }
 </script>

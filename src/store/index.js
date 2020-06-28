@@ -121,6 +121,13 @@ export default new Vuex.Store({
         .catch(err => console.log(err.response.data))
     },
     // like
+    fetchLikeUser (context, feedId) {
+      axios.get(SERVER.URL + `/articles/${feedId}/likes/`)
+        .then( res => {
+          console.log(res.data)
+        })
+        .catch(err => console.log(err.response.data))
+    },
     like ({ getters }, feedId) {
       axios.post(SERVER.URL + `/articles/${feedId}/like/`, null, getters.config)
         .then( () => {

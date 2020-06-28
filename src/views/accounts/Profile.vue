@@ -12,7 +12,8 @@
               <button class="profile-update-btn">프로필 편집</button>
             </span>
             <span v-else>
-              <button class="profile-follow-btn">팔로우</button>
+              <button @click="follow($store.state.userInfo.username)" class="profile-follow-btn">팔로우</button>
+              <button @click="unfollow($store.state.userInfo.username)" class="profile-follow-btn">언팔로우</button>
             </span>
           </p>
           <span class="profile-follow">팔로워 <span class="profile-follow-cnt">{{ $store.state.userInfo.followers_count }}</span></span>
@@ -40,14 +41,17 @@
 </template>
 
 <script>
-
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Profile',
   computed: {
     isMyProfile () {
       return this.$store.state.userInfo.username == this.$store.state.username
-    }
+    },
+  },
+  methods: {
+    ...mapActions(['follow', 'unfollow'])
   }
 }
 </script>

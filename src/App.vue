@@ -4,7 +4,7 @@
       <router-link :to="{ name: 'Home' }">Home</router-link> |
       <router-link v-if="!isLoggedIn" :to="{ name: 'SignUp' }">SignUp</router-link> |
       <router-link v-if="!isLoggedIn" :to="{ name: 'Login' }">Login</router-link> |
-      <!-- <router-link v-if="isLoggedIn" :to="{ name: 'Profile' }" >Profile</router-link> | -->
+      <!-- <router-link v-if="isLoggedIn" :to="{ name: 'Profile', params:{ username: username} }" >Profile</router-link> | -->
       <a v-if="isLoggedIn" @click="fetchUserInfo(username)">Profile</a>
       <router-link v-if="isLoggedIn"  :to="{ name: 'Logout' }">Logout</router-link> |
       <router-link v-if="isLoggedIn" :to="{ name: 'FeedCreate' }">FeedCreate</router-link> |

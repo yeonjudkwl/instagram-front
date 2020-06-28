@@ -79,7 +79,7 @@ export default new Vuex.Store({
       axios.get(SERVER.URL + `/accounts/${username}/`) 
         .then( res => {
           commit('SET_USERINFO', res.data)
-          router.push({ name: 'Profile' })
+          router.push({ name: 'Profile', params: {username: username} })
         })
         .catch( err => console.log(err.response.data))
     },
@@ -93,15 +93,33 @@ export default new Vuex.Store({
         .then( () => { 
           router.push({ name: 'FeedList' })
         }) 
-        .catch(err => { console.log('사진업로드 실패', err) });
+        .catch(err => { console.log('사진업로드 실패', err) })
     },
     fetchFeeds ({ commit }) {
       axios.get(SERVER.URL + SERVER.ROUTES.feeds) 
         .then(res => {
           commit('SET_FEEDS', res.data)
         }) 
-        .catch(err => { console.log(err.response.data) });
+        .catch(err => console.log(err.response.data))
     },
+    // profile
+    follow ({ getters }, username) {
+      axios.post(SERVER.URL + `/accounts/${username}/follow/`, null, getters.config)
+        .then( () => {
+          console.log('follow')
+          // dispatch('fetchUserInfo', username)
+          // router.push({ name: 'Profile', params: {username: username} })
+        })
+        .catch(err => console.log(err.response.data))
+    },
+    unfollow ({ getters }, username) {
+      axios.post(SERVER.URL + `/accounts/${username}/unfollow/`, null, getters.config)
+        .then( () => {
+          console.log('unfollow')
+          // router.push({ name: 'Profile', params: {username: username} })
+        })
+        .catch(err => console.log(err.response.data))
+    }
   },
   modules: {
   }

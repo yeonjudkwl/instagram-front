@@ -4,6 +4,7 @@
       <div class="profile-header">
         <div class="profile-img">
           {{ $store.state.userInfo.profile_photo }}
+          {{$store.state.username}}
         </div>
         <div class="profile-content">
           <p>
@@ -51,7 +52,10 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['follow', 'unfollow'])
+    ...mapActions(['follow', 'unfollow', 'isFollow'])
+  },
+  mounted() {
+    this.isFollow(this.$store.state.userInfo.username)
   }
 }
 </script>

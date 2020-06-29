@@ -1,14 +1,31 @@
 <template>
-  <form action="" class="comment-form">
-    <label for="contentComment" class="a11y-hidden">comment: </label>
-    <input type="text" class="comment" id="contentComment" placeholder="댓글달기">
-    <button class="comment-btn">게시</button>
-  </form>
+  <div class="comment-form">
+    <!-- <label for="contentComment" class="a11y-hidden">comment: </label> -->
+    <!-- id="contentComment" -->
+    <input v-model="commentData.content" type="text" class="comment"  placeholder="댓글달기">
+    <button @click="createComments(commentData)" class="comment-btn">게시</button>
+  </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
- name: 'FeedComment',
+  name: 'FeedComment',
+  props: {
+    feed: Object,
+  },
+  data () {
+    return {
+      commentData: {
+        feedId: this.feed.id,
+        content: null,
+      },
+    }
+  },
+  methods: {
+    ...mapActions(['createComments']),
+  }
 }
 </script>
 

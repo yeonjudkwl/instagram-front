@@ -13,7 +13,7 @@ export default new Vuex.Store({
   state: {
     authToken: cookies.get('auth-token'),
     feeds: null,
-    username: null,
+    username: cookies.get('username'),
     userInfo: null,
   },
   getters: {
@@ -32,7 +32,7 @@ export default new Vuex.Store({
       cookies.set('auth-token', payload)
     },
     SET_USERNAME (state, payload) {
-      state.username = payload
+      cookies.set('username', payload)
     },
     SET_FEEDS (state, payload) {
       state.feeds = payload
@@ -120,11 +120,23 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err.response.data))
     },
-    // like
-    fetchLikeUser (context, feedId) {
-      axios.get(SERVER.URL + `/articles/${feedId}/likes/`)
+    isFollow (context, username) {
+      axios.get(SERVER.URL + `/accounts/${username}/followers/`)
         .then( res => {
           console.log(res.data)
+        })
+        .catch(err => console.log(err.response.data))
+    },
+    // like
+    isLikeUser (context, feedId) {
+      axios.get(SERVER.URL + `/articles/${feedId}/likes/`)
+        .then( res => {
+          if (res.data.length) {
+            console.log(res.data)
+            return res.data
+          }else {
+            return []
+          }
         })
         .catch(err => console.log(err.response.data))
     },
@@ -141,6 +153,16 @@ export default new Vuex.Store({
           console.log('unlike')
         })
         .catch(err => console.log(err.response.data))
+    },
+    // comments
+    createComments ({ getters }, commentData) {
+      console.log(commentData)
+      axios.post(SERVER.URL + `/articles/${commentData.feedId}/comments/`, { content: commentData.content }, getters.config) 
+        .then( () => { 
+          console.log('댓글작성완료')
+          router.push({ name: 'FeedList' })
+        }) 
+        .catch(err => { console.log(commentData, err.response.data) })
     },
   },
   modules: {

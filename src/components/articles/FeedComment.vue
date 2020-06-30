@@ -1,14 +1,16 @@
 <template>
   <div>
     <ul class="comment-body">
-      <li>댓글1</li>
-      <li>댓글1</li>
+      <li v-for="comment in feed.comments" :key="comment.id">
+        <span @click="fetchUserInfo(comment.user.username)" class="comment-user">{{ comment.user.username}}</span>
+        {{ comment.content }}
+        <i v-if="$store.state.username === comment.user.username" class="fas fa-times comment-delete"></i>
+      </li>
     </ul>
-    {{ comments }}
     <div class="comment-form">
       <!-- <label for="contentComment" class="a11y-hidden">comment: </label> -->
       <!-- id="contentComment" -->
-      <input v-model="commentData.content" type="text" class="comment"  placeholder="댓글달기">
+      <input @keypress.enter="createComments(commentData)" v-model="commentData.content" type="text" class="comment"  placeholder="댓글달기">
       <button @click="createComments(commentData)" class="comment-btn">게시</button>
     </div>
   </div>
@@ -28,15 +30,11 @@ export default {
         feedId: this.feed.id,
         content: null,
       },
-      comments: null,
     }
   },
   methods: {
-    ...mapActions(['createComments','fetchComments']),
+    ...mapActions(['createComments', 'fetchUserInfo']),
   },
-  created () {
-    this.comments = this.fetchComments(this.feed.id)
-  }
 }
 </script>
 
@@ -65,5 +63,25 @@ export default {
 }
 .comment:focus, .comment-btn:focus{
   outline: none;
+}
+.comment-body {
+  list-style-type: none;
+  font-size: 14px;
+}
+.comment-body li {
+  margin: 5px;
+  position: relative;
+}
+.comment-user {
+  margin-right: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.comment-delete {
+  position: absolute;
+  top: 0px;
+  right: 15px;
+  color: rgb(138, 138, 138);
+  cursor: pointer;
 }
 </style>

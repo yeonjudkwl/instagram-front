@@ -13,8 +13,8 @@
               <button class="profile-update-btn">프로필 편집</button>
             </span>
             <span v-else>
-              <button @click="follow($store.state.userInfo.username)" class="profile-follow-btn">팔로우</button>
-              <button @click="unfollow($store.state.userInfo.username)" class="profile-follow-btn">언팔로우</button>
+              <button v-if="isFollower" @click="unfollow($store.state.userInfo.username)" class="profile-follow-btn unfollow-btn">언팔로우</button>
+              <button v-else @click="follow($store.state.userInfo.username)" class="profile-follow-btn">팔로우</button>
             </span>
           </p>
           <span class="profile-follow">팔로워 <span class="profile-follow-cnt">{{ $store.state.userInfo.followers_count }}</span></span>
@@ -46,16 +46,30 @@ import { mapActions } from 'vuex'
 
 export default {
   name: 'Profile',
+  data () {
+    return {
+      isFollower: false,
+    }
+  },
   computed: {
     isMyProfile () {
-      return this.$store.state.userInfo.username == this.$store.state.username
+      return this.$store.state.userInfo.username === this.$store.state.username
     },
   },
   methods: {
-    ...mapActions(['follow', 'unfollow', 'isFollow'])
+    ...mapActions(['follow', 'unfollow']),
+    isFollowers () {
+      if (this.$store.state.userInfo.followers) {
+        this.$store.state.userInfo.followers.forEach( data => {
+          if (data.username === this.$store.state.username) {
+            this.isFollower = true
+          }
+        })
+      }
+    }
   },
-  mounted() {
-    this.isFollow(this.$store.state.userInfo.username)
+  mounted () {
+    this.isFollowers()
   }
 }
 </script>
@@ -103,6 +117,16 @@ export default {
   color: rgba(255, 255, 255);
   font-weight: bold;
   cursor: pointer;
+}
+.unfollow-btn {
+  border: 2px solid rgb(53, 150, 255);
+  background: rgba(255, 255, 255);
+  color: rgb(53, 150, 255);
+}
+.unfollow-btn:hover {
+  background: rgb(53, 150, 255);
+  color: rgba(255, 255, 255);
+  transition: .3s;
 }
 .profile-follow-btn:focus{
   outline: none;

@@ -15,7 +15,6 @@ export default new Vuex.Store({
     feeds: null,
     username: cookies.get('username'),
     userInfo: null,
-    isLikeUser: false,
   },
   getters: {
     isLoggedIn: state => !!state.authToken,
@@ -71,7 +70,9 @@ export default new Vuex.Store({
       axios.post(SERVER.URL + SERVER.ROUTES.logout, null, getters.config)
         .then( () => {
           commit('SET_TOKEN', null)
+          commit('SET_USERNAME', null)
           cookies.remove('auth-token')
+          cookies.remove('username')
           router.push({ name: 'Home' })
         })
         .catch(err => console.log(err.response.data))
@@ -121,27 +122,7 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err.response.data))
     },
-    isFollow (context, username) {
-      axios.get(SERVER.URL + `/accounts/${username}/followers/`)
-        .then( res => {
-          console.log(res.data)
-        })
-        .catch(err => console.log(err.response.data))
-    },
     // like
-    isLikeUsers ({ state }, feedId) {
-      axios.get(SERVER.URL + `/articles/${feedId}/likes/`)
-        .then( res => {
-          console.log(feedId)
-          if (res.data.length) {
-            res.data.some( data => {
-              console.log(state.username, data.username)
-              return state.username === data.username
-            })
-          }
-        })
-        .catch(err => console.log(err.response.data))
-    },
     like ({ getters }, feedId) {
       axios.post(SERVER.URL + `/articles/${feedId}/like/`, null, getters.config)
         .then( () => {
@@ -158,23 +139,11 @@ export default new Vuex.Store({
     },
     // comments
     createComments ({ getters }, commentData) {
-      console.log(commentData)
       axios.post(SERVER.URL + `/articles/${commentData.feedId}/comments/`, { content: commentData.content }, getters.config) 
         .then( () => { 
           console.log('댓글작성완료')
-          // router.push({ name: 'FeedList' })
         }) 
         .catch(err => { console.log(commentData, err.response.data) })
-    },
-    fetchComments ( context, feedId ) {
-      let comments
-      axios.get(SERVER.URL + `/articles/${feedId}/comments/`)
-        .then( res => {
-          console.log(res.data)
-          comments = res.data
-        })
-        .catch(err => { console.log(err.response.data) })
-        return comments
     },
   },
   modules: {

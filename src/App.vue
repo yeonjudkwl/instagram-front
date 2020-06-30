@@ -1,15 +1,25 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link :to="{ name: 'Home' }">Home</router-link> |
-      <router-link v-if="!isLoggedIn" :to="{ name: 'SignUp' }">SignUp</router-link> |
-      <router-link v-if="!isLoggedIn" :to="{ name: 'Login' }">Login</router-link> |
-      <!-- <router-link v-if="isLoggedIn" :to="{ name: 'Profile', params:{ username: username} }" >Profile</router-link> | -->
-      <a v-if="isLoggedIn" @click="fetchUserInfo(username)">Profile</a>
-      <router-link v-if="isLoggedIn"  :to="{ name: 'Logout' }">Logout</router-link> |
-      <router-link v-if="isLoggedIn" :to="{ name: 'FeedCreate' }">FeedCreate</router-link> |
-      <router-link :to="{ name: 'FeedList' }">FeedList</router-link> |
-    </div>
+    <header>
+      <div class="logo">
+        <img src="@/assets/images/instagram.png" class="main-logo"/>
+      </div>
+      <div class="search">
+        <label for="search" class="a11y-hidden">search: </label>
+        <input type="text" id="search" value="검색">
+      </div>
+      <nav id="nav">
+        <router-link :to="{ name: 'Home' }">Home</router-link> |
+        <router-link v-if="!isLoggedIn" :to="{ name: 'SignUp' }">SignUp</router-link> |
+        <router-link v-if="!isLoggedIn" :to="{ name: 'Login' }">Login</router-link> |
+        <!-- <router-link v-if="isLoggedIn" :to="{ name: 'Profile', params:{ username: username} }" >Profile</router-link> | -->
+        <a v-if="isLoggedIn" @click="fetchUserInfo(username)">Profile</a>
+        <router-link v-if="isLoggedIn"  :to="{ name: 'Logout' }">Logout</router-link> |
+        <router-link v-if="isLoggedIn" :to="{ name: 'FeedCreate' }">FeedCreate</router-link> |
+        <router-link :to="{ name: 'FeedList' }">FeedList</router-link> |
+      </nav>
+    </header>
+    
     <router-view/>
   </div>
 </template>
@@ -43,16 +53,29 @@ export default {
   background: rgba(250, 250, 250);
   color: #2c3e50;
 }
-
+header{
+  height: 80px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border-bottom: 1px solid #DBDBDB;
+  background-color: #ffffff;
+}
+.main-logo{
+  width: 135px;
+}
+.search input{
+  width: 200px;
+  padding: 5px;
+  border:1px solid #DBDBDB;
+  border-radius: 5px;
+  background-color:#fafafa;
+  text-align: center;
+  color: #999999;
+}
 #nav {
   padding: 30px;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
 #nav a.router-link-exact-active {
   color: #42b983;
 }

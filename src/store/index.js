@@ -47,7 +47,7 @@ export default new Vuex.Store({
         .then(res => {
           commit('SET_TOKEN', res.data.key)
           commit('SET_USERNAME', payload.data.username)
-          router.push({ name: 'Home' })
+          router.push({ name: 'FeedList' })
         })
         .catch(err => console.log(err.response.data))
     },
@@ -73,7 +73,7 @@ export default new Vuex.Store({
           commit('SET_USERNAME', null)
           cookies.remove('auth-token')
           cookies.remove('username')
-          router.push({ name: 'Home' })
+          router.push({ name: 'FeedList' })
         })
         .catch(err => console.log(err.response.data))
     },

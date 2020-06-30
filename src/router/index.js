@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 // accounts
 import SignUp from '../views/accounts/SignUp.vue'
 import Login from '../views/accounts/Login.vue'
@@ -15,8 +14,13 @@ Vue.use(VueRouter)
   const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'FeedList',
+    component: FeedList
+  },
+  {
+    path: '/articles',
+    name: 'FeedList',
+    component: FeedList
   },
   {
     path: '/accounts/signup',
@@ -42,11 +46,6 @@ Vue.use(VueRouter)
     path: '/articles/create',
     name: 'FeedCreate',
     component: FeedCreate
-  },
-  {
-    path: '/articles',
-    name: 'FeedList',
-    component: FeedList
   },
 ]
 

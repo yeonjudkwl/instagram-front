@@ -2,21 +2,22 @@
   <div id="app">
     <header>
       <div class="logo">
-        <img src="@/assets/images/instagram.png" class="main-logo"/>
+        <router-link :to="{ name: 'FeedList' }"><img src="@/assets/images/instagram.png" class="main-logo"/></router-link>
       </div>
       <div class="search">
         <label for="search" class="a11y-hidden">search: </label>
         <input type="text" id="search" value="검색">
       </div>
       <nav id="nav">
-        <router-link :to="{ name: 'Home' }">Home</router-link> |
-        <router-link v-if="!isLoggedIn" :to="{ name: 'SignUp' }">SignUp</router-link> |
-        <router-link v-if="!isLoggedIn" :to="{ name: 'Login' }">Login</router-link> |
+        <router-link :to="{ name: 'FeedList' }"><i class="logo_img fas fa-house-user"></i></router-link>
+        <router-link v-if="isLoggedIn" :to="{ name: 'FeedCreate' }"><i class="logo_img fas fa-plus-circle"></i></router-link>
+        <a v-if="isLoggedIn" @click="fetchUserInfo(username)"><i class="logo_img fas fa-user-circle"></i></a>
+        <!-- <router-link v-if="isLoggedIn" :to="{ name: 'FeedCreate' }"><i class="logo_img fas fa-plus"></i></router-link>
+        <a v-if="isLoggedIn" @click="fetchUserInfo(username)"><i class="logo_img fas fa-user"></i></a> -->
+        <router-link v-if="!isLoggedIn" :to="{ name: 'SignUp' }">SignUp</router-link>
+        <router-link v-if="!isLoggedIn" :to="{ name: 'Login' }">Login</router-link>
         <!-- <router-link v-if="isLoggedIn" :to="{ name: 'Profile', params:{ username: username} }" >Profile</router-link> | -->
-        <a v-if="isLoggedIn" @click="fetchUserInfo(username)">Profile</a>
-        <router-link v-if="isLoggedIn"  :to="{ name: 'Logout' }">Logout</router-link> |
-        <router-link v-if="isLoggedIn" :to="{ name: 'FeedCreate' }">FeedCreate</router-link> |
-        <router-link :to="{ name: 'FeedList' }">FeedList</router-link> |
+        <router-link v-if="isLoggedIn"  :to="{ name: 'Logout' }">Logout</router-link>
       </nav>
     </header>
     
@@ -72,6 +73,11 @@ header{
   background-color:#fafafa;
   text-align: center;
   color: #999999;
+}
+.logo_img{
+  padding: 10px;
+  transform: scale(1.5);
+  cursor: pointer;
 }
 #nav {
   padding: 30px;

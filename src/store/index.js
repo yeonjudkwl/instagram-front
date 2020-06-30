@@ -15,6 +15,7 @@ export default new Vuex.Store({
     feeds: null,
     username: cookies.get('username'),
     userInfo: null,
+    isLikeUser: false,
   },
   getters: {
     isLoggedIn: state => !!state.authToken,
@@ -39,7 +40,7 @@ export default new Vuex.Store({
     },
     SET_USERINFO (state, payload) {
       state.userInfo = payload
-    }
+    },
   },
   actions: {
     postAuthData({ commit }, payload) {
@@ -128,14 +129,15 @@ export default new Vuex.Store({
         .catch(err => console.log(err.response.data))
     },
     // like
-    isLikeUser (context, feedId) {
+    isLikeUsers ({ state }, feedId) {
       axios.get(SERVER.URL + `/articles/${feedId}/likes/`)
         .then( res => {
+          console.log(feedId)
           if (res.data.length) {
-            console.log(res.data)
-            return res.data
-          }else {
-            return []
+            res.data.some( data => {
+              console.log(state.username, data.username)
+              return state.username === data.username
+            })
           }
         })
         .catch(err => console.log(err.response.data))
@@ -160,9 +162,19 @@ export default new Vuex.Store({
       axios.post(SERVER.URL + `/articles/${commentData.feedId}/comments/`, { content: commentData.content }, getters.config) 
         .then( () => { 
           console.log('댓글작성완료')
-          router.push({ name: 'FeedList' })
+          // router.push({ name: 'FeedList' })
         }) 
         .catch(err => { console.log(commentData, err.response.data) })
+    },
+    fetchComments ( context, feedId ) {
+      let comments
+      axios.get(SERVER.URL + `/articles/${feedId}/comments/`)
+        .then( res => {
+          console.log(res.data)
+          comments = res.data
+        })
+        .catch(err => { console.log(err.response.data) })
+        return comments
     },
   },
   modules: {

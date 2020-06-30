@@ -1,9 +1,16 @@
 <template>
-  <div class="comment-form">
-    <!-- <label for="contentComment" class="a11y-hidden">comment: </label> -->
-    <!-- id="contentComment" -->
-    <input v-model="commentData.content" type="text" class="comment"  placeholder="댓글달기">
-    <button @click="createComments(commentData)" class="comment-btn">게시</button>
+  <div>
+    <ul class="comment-body">
+      <li>댓글1</li>
+      <li>댓글1</li>
+    </ul>
+    {{ comments }}
+    <div class="comment-form">
+      <!-- <label for="contentComment" class="a11y-hidden">comment: </label> -->
+      <!-- id="contentComment" -->
+      <input v-model="commentData.content" type="text" class="comment"  placeholder="댓글달기">
+      <button @click="createComments(commentData)" class="comment-btn">게시</button>
+    </div>
   </div>
 </template>
 
@@ -21,10 +28,14 @@ export default {
         feedId: this.feed.id,
         content: null,
       },
+      comments: null,
     }
   },
   methods: {
-    ...mapActions(['createComments']),
+    ...mapActions(['createComments','fetchComments']),
+  },
+  created () {
+    this.comments = this.fetchComments(this.feed.id)
   }
 }
 </script>

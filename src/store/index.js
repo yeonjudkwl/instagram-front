@@ -95,7 +95,7 @@ export default new Vuex.Store({
         .then( () => { 
           router.push({ name: 'FeedList' })
         }) 
-        .catch(err => { console.log('사진업로드 실패', err) })
+        .catch(err => { console.log('업로드 실패', err) })
     },
     fetchFeeds ({ commit }) {
       axios.get(SERVER.URL + SERVER.ROUTES.feeds) 
@@ -104,11 +104,18 @@ export default new Vuex.Store({
         }) 
         .catch(err => console.log(err.response.data))
     },
+    updateFeed ({ getters }, updateData ) {
+      axios.put(SERVER.URL + `/articles/${updateData.feedId}/`, updateData.content, getters.config)
+        .then ( res => {
+          console.log(res.data)
+        })
+        .catch(err => console.log(err.response.data))
+    },
     deleteFeed ({ getters }, feedId ) {
       axios.delete(SERVER.URL + `/articles/${feedId}/`, getters.config)
         .then ( () => {
           console.log('피드삭제')
-        })
+        }) 
         .catch(err => console.log(err.response.data))
     },
     // profile
@@ -116,8 +123,6 @@ export default new Vuex.Store({
       axios.post(SERVER.URL + `/accounts/${username}/follow/`, null, getters.config)
         .then( () => {
           console.log('follow')
-          // dispatch('fetchUserInfo', username)
-          // router.push({ name: 'Profile', params: {username: username} })
         })
         .catch(err => console.log(err.response.data))
     },
@@ -125,7 +130,6 @@ export default new Vuex.Store({
       axios.post(SERVER.URL + `/accounts/${username}/unfollow/`, null, getters.config)
         .then( () => {
           console.log('unfollow')
-          // router.push({ name: 'Profile', params: {username: username} })
         })
         .catch(err => console.log(err.response.data))
     },
@@ -156,13 +160,6 @@ export default new Vuex.Store({
       axios.delete(SERVER.URL + `/articles/${commentDelete.feedId}/comments/${commentDelete.commentId}/`, getters.config)
         .then ( () => {
           console.log('댓글삭제')
-        })
-        .catch(err => console.log(err.response.data))
-    },
-    updateComment ({ getters }, commentUpdate ) {
-      axios.put(SERVER.URL + `/articles/${commentUpdate.feedId}/comments/${commentUpdate.commentId}/`, getters.config)
-        .then ( res => {
-          console.log(res.data)
         })
         .catch(err => console.log(err.response.data))
     },

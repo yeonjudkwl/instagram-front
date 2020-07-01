@@ -4,7 +4,10 @@
       <li v-for="comment in feed.comments" :key="comment.id">
         <span @click="fetchUserInfo(comment.user.username)" class="comment-user">{{ comment.user.username}}</span>
         {{ comment.content }}
-        <i v-if="$store.state.username === comment.user.username" class="fas fa-times comment-delete"></i>
+        <i v-if="$store.state.username === comment.user.username" 
+           @click="deleteComment({ feedId:feed.id, commentId:comment.id })" 
+           class="fas fa-times comment-delete" >
+        </i>
       </li>
     </ul>
     <div class="comment-form">
@@ -33,7 +36,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['createComments', 'fetchUserInfo']),
+    ...mapActions(['createComments', 'fetchUserInfo', 'deleteComment']),
   },
 }
 </script>

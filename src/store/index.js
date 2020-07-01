@@ -152,6 +152,13 @@ export default new Vuex.Store({
         }) 
         .catch(err => { console.log(commentData, err.response.data) })
     },
+    deleteComment ({ getters }, commentDelete ) {
+      axios.delete(SERVER.URL + `/articles/${commentDelete.feedId}/comments/${commentDelete.commentId}/`, getters.config)
+        .then ( () => {
+          console.log('댓글삭제')
+        })
+        .catch(err => console.log(err.response.data))
+    },
   },
   modules: {
   }

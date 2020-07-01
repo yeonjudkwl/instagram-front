@@ -159,6 +159,13 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err.response.data))
     },
+    updateComment ({ getters }, commentUpdate ) {
+      axios.put(SERVER.URL + `/articles/${commentUpdate.feedId}/comments/${commentUpdate.commentId}/`, getters.config)
+        .then ( res => {
+          console.log(res.data)
+        })
+        .catch(err => console.log(err.response.data))
+    },
   },
   modules: {
   }

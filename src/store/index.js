@@ -104,6 +104,13 @@ export default new Vuex.Store({
         }) 
         .catch(err => console.log(err.response.data))
     },
+    deleteFeed ({ getters }, feedId ) {
+      axios.delete(SERVER.URL + `/articles/${feedId}/`, getters.config)
+        .then ( () => {
+          console.log('피드삭제')
+        })
+        .catch(err => console.log(err.response.data))
+    },
     // profile
     follow ({ getters }, username) {
       axios.post(SERVER.URL + `/accounts/${username}/follow/`, null, getters.config)

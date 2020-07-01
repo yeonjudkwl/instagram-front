@@ -3,6 +3,8 @@
     <div class="title">
       <img src="@/assets/images/hong.png" alt="profile-image" class="img">
       <p @click="fetchUserInfo(feed.user.username)">{{ feed.user.username }}</p>
+      <span style="margin-right: 10px;" >수정</span>
+      <span v-if="feed.user.username === $store.state.username" @click="deleteFeed(feed.id)">삭제</span>
     </div>
     <img :src="url" alt="feed-image" class="con_img">
   </div>
@@ -24,7 +26,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchUserInfo'])
+    ...mapActions(['fetchUserInfo', 'deleteFeed'])
   },
 }
 </script>

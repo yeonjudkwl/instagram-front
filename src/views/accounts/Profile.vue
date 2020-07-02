@@ -20,9 +20,9 @@
           <span class="profile-follow">팔로우 <span class="profile-follow-cnt">{{ $store.state.userInfo.following_count }}</span></span>
           <small>{{ $store.state.userInfo.name }}</small><small>{{ this.gender }}</small>
           <p>{{ $store.state.userInfo.description }}</p>
-          <!-- <span v-if="isMyProfile">
+          <span v-if="isMyProfile">
             <button @click="deleteUserInfo($store.state.userInfo.username)">회원 탈퇴</button>
-          </span> -->
+          </span>
         </div>
       </div>
       <hr>
@@ -66,8 +66,7 @@ export default {
     },
   },
   methods: {
-    // ...mapActions(['follow', 'unfollow', 'deleteUserInfo']),
-    ...mapActions(['follow', 'unfollow']),
+    ...mapActions(['follow', 'unfollow', 'deleteUserInfo']),
     isFollowers () {
       if (this.$store.state.userInfo.followers) {
         this.$store.state.userInfo.followers.forEach( data => {

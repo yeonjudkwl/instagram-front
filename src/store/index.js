@@ -99,13 +99,18 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err.response.data))
     },
-    // deleteUserInfo ({ getters }, username ) {
-    //   axios.delete(SERVER.URL + `/accounts/${username}/`, getters.config)
-    //     .then ( () => {
-    //       console.log('회원 삭제')
-    //     }) 
-    //     .catch(err => console.log(err.response.data))
-    // },
+    deleteUserInfo ({ getters, commit }, username ) {
+      axios.delete(SERVER.URL + `/accounts/${username}/`, getters.config)
+        .then ( () => {
+          console.log('회원 사용 중지')
+          commit('SET_TOKEN', null)
+          commit('SET_USERNAME', null)
+          cookies.remove('auth-token')
+          cookies.remove('username')
+          router.push({ name: 'FeedList' })
+        }) 
+        .catch(err => console.log(err.response.data))
+    },
     // articles
     create ({ getters }, feedData) {
       const formdata = new FormData()
@@ -139,7 +144,7 @@ export default new Vuex.Store({
         }) 
         .catch(err => console.log(err.response.data))
     },
-    // profile
+    // follow
     follow ({ getters }, username) {
       axios.post(SERVER.URL + `/accounts/${username}/follow/`, null, getters.config)
         .then( () => {

@@ -3,14 +3,13 @@
     <div class="profile-wrap">
       <div class="profile-header">
         <div class="profile-img">
-          {{ $store.state.userInfo.profile_photo }}
-          {{$store.state.username}}
+          <img :src="url" alt="profile">
         </div>
         <div class="profile-content">
           <p>
             {{ $store.state.userInfo.username }}
             <span v-if="isMyProfile">
-              <button class="profile-update-btn">프로필 편집</button>
+              <button class="profile-update-btn"><router-link :to="{ name: 'ProfileUpdate', params: { username: $store.state.username } }">프로필 편집</router-link></button>
             </span>
             <span v-else>
               <button v-if="isFollower" @click="unfollow($store.state.userInfo.username)" class="profile-follow-btn unfollow-btn">언팔로우</button>
@@ -19,7 +18,8 @@
           </p>
           <span class="profile-follow">팔로워 <span class="profile-follow-cnt">{{ $store.state.userInfo.followers_count }}</span></span>
           <span class="profile-follow">팔로우 <span class="profile-follow-cnt">{{ $store.state.userInfo.following_count }}</span></span>
-          <small>{{ $store.state.userInfo.name }}</small>
+          <small>{{ $store.state.userInfo.name }}</small><small>{{ $store.state.userInfo.gender }}</small>
+          <p>{{ $store.state.userInfo.description }}</p>
         </div>
       </div>
       <hr>
@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import SERVER from '@/api/drf'
 import { mapActions } from 'vuex'
 
 export default {
@@ -55,6 +56,10 @@ export default {
     isMyProfile () {
       return this.$store.state.userInfo.username === this.$store.state.username
     },
+    url () {
+      const img = this.$store.state.userInfo.profile_photo
+      return SERVER.URL + img
+    }
   },
   methods: {
     ...mapActions(['follow', 'unfollow']),

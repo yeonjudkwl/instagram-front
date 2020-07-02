@@ -85,6 +85,20 @@ export default new Vuex.Store({
         })
         .catch( err => console.log(err.response.data))
     },
+    updateUserInfo ({ getters, commit }, updateData ) {
+      const formdata = new FormData()
+      formdata.append('profile_photo', updateData.profileData.file)
+      formdata.append('name', updateData.profileData.name)
+      formdata.append('gender', updateData.profileData.gender)
+      formdata.append('description', updateData.profileData.description)
+
+      axios.put(SERVER.URL + `/accounts/${updateData.username}/`, formdata, getters.imgConfig)
+        .then ( res => {
+          commit('SET_USERINFO', res.data)
+          router.push({ name: 'Profile', params: {username: updateData.username} })
+        })
+        .catch(err => console.log(err.response.data))
+    },
     // articles
     create ({ getters }, feedData) {
       const formdata = new FormData()

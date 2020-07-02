@@ -5,6 +5,7 @@ import SignUp from '../views/accounts/SignUp.vue'
 import Login from '../views/accounts/Login.vue'
 import Logout from '../views/accounts/Logout.vue'
 import Profile from '../views/accounts/Profile.vue'
+import ProfileUpdate from '../views/accounts/ProfileUpdate.vue'
 // Feed
 import FeedList from '../views/articles/FeedList.vue'
 import FeedCreate from '../views/articles/FeedCreate.vue'
@@ -42,6 +43,11 @@ Vue.use(VueRouter)
     path: '/accounts/:username',
     name: 'Profile',
     component: Profile
+  },
+  {
+    path: '/accounts/:username/update',
+    name: 'ProfileUpdate',
+    component: ProfileUpdate
   },
   {
     path: '/articles/create',

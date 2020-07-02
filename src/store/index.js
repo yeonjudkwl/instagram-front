@@ -105,9 +105,9 @@ export default new Vuex.Store({
         .catch(err => console.log(err.response.data))
     },
     updateFeed ({ getters }, updateData ) {
-      axios.put(SERVER.URL + `/articles/${updateData.feedId}/`, updateData.content, getters.config)
-        .then ( res => {
-          console.log(res.data)
+      axios.put(SERVER.URL + `/articles/${updateData.feedId}/`, { content: updateData.content }, getters.config)
+        .then ( () => {
+          router.push({ name: 'FeedList' })
         })
         .catch(err => console.log(err.response.data))
     },

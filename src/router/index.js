@@ -8,6 +8,7 @@ import Profile from '../views/accounts/Profile.vue'
 // Feed
 import FeedList from '../views/articles/FeedList.vue'
 import FeedCreate from '../views/articles/FeedCreate.vue'
+import FeedUpdate from '../views/articles/FeedUpdate.vue'
 
 Vue.use(VueRouter)
 
@@ -47,6 +48,11 @@ Vue.use(VueRouter)
     name: 'FeedCreate',
     component: FeedCreate
   },
+  {
+    path: '/articles/:id/update',
+    name: 'FeedUpdate',
+    component: FeedUpdate
+  },
 ]
 
 const router = new VueRouter({
@@ -62,7 +68,7 @@ router.beforeEach((to, from, next) => {
   // 로그인 해야함
   const authRequired = ['Logout', 'FeedCreate','Profile'].includes(to.name)
   // 로그인 해서는 안 됨
-  const unauthRequired = ['Login', 'Signup'].includes(to.name)
+  const unauthRequired = ['Login', 'SignUp'].includes(to.name)
   const isLoggedIn = Vue.$cookies.isKey('auth-token')
   
   // 로그인 해야하는데 로그인 안 되어 있으면
@@ -70,7 +76,7 @@ router.beforeEach((to, from, next) => {
   
   // 로그인 해서는 안되는데 로그인 되어 있으면
   if (unauthRequired && isLoggedIn) {
-      next({ name: 'Home'})
+      next({ name: 'FeedList'})
   }
 })
 

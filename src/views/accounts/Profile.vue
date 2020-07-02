@@ -18,8 +18,11 @@
           </p>
           <span class="profile-follow">팔로워 <span class="profile-follow-cnt">{{ $store.state.userInfo.followers_count }}</span></span>
           <span class="profile-follow">팔로우 <span class="profile-follow-cnt">{{ $store.state.userInfo.following_count }}</span></span>
-          <small>{{ $store.state.userInfo.name }}</small><small>{{ $store.state.userInfo.gender }}</small>
+          <small>{{ $store.state.userInfo.name }}</small><small>{{ this.gender }}</small>
           <p>{{ $store.state.userInfo.description }}</p>
+          <!-- <span v-if="isMyProfile">
+            <button @click="deleteUserInfo($store.state.userInfo.username)">회원 탈퇴</button>
+          </span> -->
         </div>
       </div>
       <hr>
@@ -50,6 +53,7 @@ export default {
   data () {
     return {
       isFollower: false,
+      gender: null,
     }
   },
   computed: {
@@ -59,9 +63,10 @@ export default {
     url () {
       const img = this.$store.state.userInfo.profile_photo
       return SERVER.URL + img
-    }
+    },
   },
   methods: {
+    // ...mapActions(['follow', 'unfollow', 'deleteUserInfo']),
     ...mapActions(['follow', 'unfollow']),
     isFollowers () {
       if (this.$store.state.userInfo.followers) {
@@ -71,7 +76,19 @@ export default {
           }
         })
       }
-    }
+    },
+    fetchGender () {
+      if (this.$store.state.userInfo.gender === "female") {
+        this.gender = '여'
+      }else if (this.$store.state.userInfo.gender === "male") {
+        this.gender = '남'
+      }else {
+        this.gender = null
+      }
+    },
+  },
+  created () {
+    this.fetchGender()
   },
   mounted () {
     this.isFollowers()

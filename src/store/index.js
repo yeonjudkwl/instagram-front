@@ -99,6 +99,13 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err.response.data))
     },
+    // deleteUserInfo ({ getters }, username ) {
+    //   axios.delete(SERVER.URL + `/accounts/${username}/`, getters.config)
+    //     .then ( () => {
+    //       console.log('회원 삭제')
+    //     }) 
+    //     .catch(err => console.log(err.response.data))
+    // },
     // articles
     create ({ getters }, feedData) {
       const formdata = new FormData()

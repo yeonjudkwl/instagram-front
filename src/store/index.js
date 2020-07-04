@@ -16,6 +16,7 @@ export default new Vuex.Store({
     username: cookies.get('username'),
     userInfo: null,
     // isFollower: false,
+    isLikeUser: false,
   },
   getters: {
     isLoggedIn: state => !!state.authToken,
@@ -177,17 +178,19 @@ export default new Vuex.Store({
         .catch(err => console.log(err.response.data))
     },
     // like
-    like ({ getters }, feedId) {
+    like ({ state, getters }, feedId) {
       axios.post(SERVER.URL + `/articles/${feedId}/like/`, null, getters.config)
         .then( () => {
           console.log('like')
+          state.isLikeUser = true
         })
         .catch(err => console.log(err.response.data))
     },
-    unlike ({ getters }, feedId) {
+    unlike ({ state, getters }, feedId) {
       axios.post(SERVER.URL + `/articles/${feedId}/unlike/`, null, getters.config)
         .then( () => {
           console.log('unlike')
+          state.isLikeUser = false
         })
         .catch(err => console.log(err.response.data))
     },

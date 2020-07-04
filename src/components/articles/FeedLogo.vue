@@ -15,17 +15,15 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'FeedLogo',
   props: {
     feed: Object,
   },
-  data () {
-    return {
-      isLikeUser: false,
-    }
+  computed: {
+    ...mapState(['isLikeUser'])
   },
   methods: {
     ...mapActions(['like', 'unlike']),

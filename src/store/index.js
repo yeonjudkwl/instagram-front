@@ -177,17 +177,19 @@ export default new Vuex.Store({
         .catch(err => console.log(err.response.data))
     },
     // like
-    like ({ getters }, feedId) {
+    like ({ getters, dispatch }, feedId) {
       axios.post(SERVER.URL + `/articles/${feedId}/like/`, null, getters.config)
         .then( () => {
           console.log('like')
+          dispatch('fetchFeeds')
         })
         .catch(err => console.log(err.response.data))
     },
-    unlike ({ getters }, feedId) {
+    unlike ({ getters, dispatch }, feedId) {
       axios.post(SERVER.URL + `/articles/${feedId}/unlike/`, null, getters.config)
         .then( () => {
           console.log('unlike')
+          dispatch('fetchFeeds')
         })
         .catch(err => console.log(err.response.data))
     },

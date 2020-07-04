@@ -12,8 +12,8 @@
               <button class="profile-update-btn"><router-link :to="{ name: 'ProfileUpdate', params: { username: $store.state.username } }">프로필 편집</router-link></button>
             </span>
             <span v-else>
-              <button v-if="isFollower" @click="unfollow($store.state.userInfo.username)" class="profile-follow-btn unfollow-btn">언팔로우</button>
-              <button v-else @click="follow($store.state.userInfo.username)" class="profile-follow-btn">팔로우</button>
+              <button v-if="isFollower" @click="unfollow($store.state.userInfo.username);isFollow()" class="profile-follow-btn unfollow-btn">언팔로우</button>
+              <button v-else @click="follow($store.state.userInfo.username);isFollow()" class="profile-follow-btn">팔로우</button>
             </span>
           </p>
           <span class="profile-follow">팔로워 <span class="profile-follow-cnt">{{ $store.state.userInfo.followers_count }}</span></span>
@@ -67,6 +67,9 @@ export default {
           }
         })
       }
+    },
+    isFollow () {
+      this.isFollower = !this.isFollower
     },
     fetchGender () {
       if (this.$store.state.userInfo.gender === "female") {

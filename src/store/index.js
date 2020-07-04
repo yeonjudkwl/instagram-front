@@ -98,6 +98,13 @@ export default new Vuex.Store({
         })
         .catch( err => console.log(err.response.data))
     },
+    fetchUserInfoForFollow ({ commit }, username) {
+      axios.get(SERVER.URL + `/accounts/${username}/`) 
+        .then( res => {
+          commit('SET_USERINFO', res.data)
+        })
+        .catch( err => console.log(err.response.data))
+    },
     updateUserInfo ({ getters, commit }, updateData ) {
       const formdata = new FormData()
       formdata.append('profile_photo', updateData.profileData.file)
@@ -162,8 +169,7 @@ export default new Vuex.Store({
       axios.post(SERVER.URL + `/accounts/${username}/follow/`, null, getters.config)
         .then( () => {
           console.log('follow')
-          dispatch('fetchUserInfo', username)
-          // commit('isFollowers')
+          dispatch('fetchUserInfoForFollow', username)
         })
         .catch(err => console.log(err))
     },
@@ -171,8 +177,7 @@ export default new Vuex.Store({
       axios.post(SERVER.URL + `/accounts/${username}/unfollow/`, null, getters.config)
         .then( () => {
           console.log('unfollow')
-          dispatch('fetchUserInfo', username)
-          // commit('isFollowers')
+          dispatch('fetchUserInfoForFollow', username)
         })
         .catch(err => console.log(err.response.data))
     },

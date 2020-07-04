@@ -4,7 +4,7 @@
     <FeedLogo :feed="feed"/>
     <div class="content">
         <p class="content-like">좋아요 {{ feed.like_count }}개</p>
-        <p><span @click="fetchUserInfo(feed.user.username)" class="user">{{ feed.user.username }}</span>{{ feed.content }}</p>
+        <p><span @click="fetchUserInfoPushProfile(feed.user.username)" class="user">{{ feed.user.username }}</span>{{ feed.content }}</p>
         <FeedComment :feed="feed"/>
     </div>    
   </div>
@@ -27,7 +27,7 @@ export default {
     feed: Object,
   },
   methods: {
-    ...mapActions(['fetchUserInfo'])
+    ...mapActions(['fetchUserInfoPushProfile'])
   },
 }
 </script>

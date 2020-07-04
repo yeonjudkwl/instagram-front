@@ -2,7 +2,7 @@
   <div>
     <ul class="comment-body">
       <li v-for="comment in feed.comments" :key="comment.id">
-        <span @click="fetchUserInfo(comment.user.username)" class="comment-user">{{ comment.user.username}}</span>
+        <span @click="fetchUserInfoPushProfile(comment.user.username)" class="comment-user">{{ comment.user.username}}</span>
         {{ comment.content }}
         <i v-if="$store.state.username === comment.user.username" 
            @click="deleteComment({ feedId:feed.id, commentId:comment.id })" 
@@ -36,7 +36,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['createComments', 'fetchUserInfo', 'deleteComment']),
+    ...mapActions(['createComments', 'fetchUserInfoPushProfile', 'deleteComment']),
     resetContent () {
       this.commentData.content = null
     }

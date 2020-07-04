@@ -11,7 +11,7 @@
       <nav id="nav">
         <router-link :to="{ name: 'FeedList' }"><i class="logo_img fas fa-house-user"></i></router-link>
         <router-link v-if="isLoggedIn" :to="{ name: 'FeedCreate' }"><i class="logo_img fas fa-plus-circle"></i></router-link>
-        <a v-if="isLoggedIn" @click="fetchUserInfo(username)"><i class="logo_img fas fa-user-circle"></i></a>
+        <a v-if="isLoggedIn" @click="fetchUserInfoPushProfile(username)"><i class="logo_img fas fa-user-circle"></i></a>
         <!-- <router-link v-if="isLoggedIn" :to="{ name: 'FeedCreate' }"><i class="logo_img fas fa-plus"></i></router-link>
         <a v-if="isLoggedIn" @click="fetchUserInfo(username)"><i class="logo_img fas fa-user"></i></a> -->
         <router-link v-if="!isLoggedIn" :to="{ name: 'SignUp' }">SignUp</router-link>
@@ -19,24 +19,23 @@
         <!-- <router-link v-if="isLoggedIn" :to="{ name: 'Profile', params:{ username: username} }" >Profile</router-link> | -->
         <router-link v-if="isLoggedIn"  :to="{ name: 'Logout' }">Logout</router-link>
       </nav>
+      {{username}}
     </header>
     
     <router-view/>
   </div>
 </template>
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'App',
   computed: {
+    ...mapState(['username']),
     ...mapGetters(['isLoggedIn']),
-    username () {
-      return this.$store.state.username
-    }
   },
   methods: {
-    ...mapActions(['fetchUserInfo'])
+    ...mapActions(['fetchUserInfoPushProfile'])
   },
 }
 </script>

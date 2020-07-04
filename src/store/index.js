@@ -90,7 +90,7 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err.response.data))
     },
-    fetchUserInfo ({ commit }, username) {
+    fetchUserInfoPushProfile ({ commit }, username) {
       axios.get(SERVER.URL + `/accounts/${username}/`) 
         .then( res => {
           commit('SET_USERINFO', res.data)
@@ -98,7 +98,7 @@ export default new Vuex.Store({
         })
         .catch( err => console.log(err.response.data))
     },
-    fetchUserInfoForFollow ({ commit }, username) {
+    fetchUserInfo ({ commit }, username) {
       axios.get(SERVER.URL + `/accounts/${username}/`) 
         .then( res => {
           commit('SET_USERINFO', res.data)
@@ -169,7 +169,7 @@ export default new Vuex.Store({
       axios.post(SERVER.URL + `/accounts/${username}/follow/`, null, getters.config)
         .then( () => {
           console.log('follow')
-          dispatch('fetchUserInfoForFollow', username)
+          dispatch('fetchUserInfo', username)
         })
         .catch(err => console.log(err))
     },
@@ -177,7 +177,7 @@ export default new Vuex.Store({
       axios.post(SERVER.URL + `/accounts/${username}/unfollow/`, null, getters.config)
         .then( () => {
           console.log('unfollow')
-          dispatch('fetchUserInfoForFollow', username)
+          dispatch('fetchUserInfo', username)
         })
         .catch(err => console.log(err.response.data))
     },

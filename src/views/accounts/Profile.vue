@@ -34,7 +34,7 @@
 <script>
 import SERVER from '@/api/drf'
 import MyFeed from '@/components/articles/MyFeed.vue'
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'Profile',
@@ -55,6 +55,7 @@ export default {
       const img = this.$store.state.userInfo.profile_photo
       return SERVER.URL + img
     },
+    ...mapState(['isFollower']),
   },
   methods: {
     ...mapActions(['follow', 'unfollow', 'deleteUserInfo']),

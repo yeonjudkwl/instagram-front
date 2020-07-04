@@ -15,6 +15,7 @@ export default new Vuex.Store({
     feeds: null,
     username: cookies.get('username'),
     userInfo: null,
+    // isFollower: false,
   },
   getters: {
     isLoggedIn: state => !!state.authToken,
@@ -40,6 +41,18 @@ export default new Vuex.Store({
     SET_USERINFO (state, payload) {
       state.userInfo = payload
     },
+    // isFollowers (state) {
+    //   if (state.userInfo.followers) {
+    //     console.log(state.userInfo.followers)
+    //     state.userInfo.followers.forEach( data => {
+    //       if (data.username === state.username) {
+    //         state.isFollower = true
+    //       }else {
+    //         state.isFollower = false
+    //       }
+    //     })
+    //   }
+    // },
   },
   actions: {
     postAuthData({ commit }, payload) {
@@ -145,17 +158,21 @@ export default new Vuex.Store({
         .catch(err => console.log(err.response.data))
     },
     // follow
-    follow ({ getters }, username) {
+    follow ({ getters, dispatch }, username) {
       axios.post(SERVER.URL + `/accounts/${username}/follow/`, null, getters.config)
         .then( () => {
           console.log('follow')
+          dispatch('fetchUserInfo', username)
+          // commit('isFollowers')
         })
-        .catch(err => console.log(err.response.data))
+        .catch(err => console.log(err))
     },
-    unfollow ({ getters }, username) {
+    unfollow ({ getters, dispatch }, username) {
       axios.post(SERVER.URL + `/accounts/${username}/unfollow/`, null, getters.config)
         .then( () => {
           console.log('unfollow')
+          dispatch('fetchUserInfo', username)
+          // commit('isFollowers')
         })
         .catch(err => console.log(err.response.data))
     },

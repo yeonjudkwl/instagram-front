@@ -199,17 +199,19 @@ export default new Vuex.Store({
         .catch(err => console.log(err.response.data))
     },
     // comments
-    createComments ({ getters }, commentData) {
+    createComments ({ getters, dispatch }, commentData) {
       axios.post(SERVER.URL + `/articles/${commentData.feedId}/comments/`, { content: commentData.content }, getters.config) 
         .then( () => { 
           console.log('댓글작성완료')
+          dispatch('fetchFeeds')
         }) 
         .catch(err => { console.log(commentData, err.response.data) })
     },
-    deleteComment ({ getters }, commentDelete ) {
+    deleteComment ({ getters, dispatch }, commentDelete ) {
       axios.delete(SERVER.URL + `/articles/${commentDelete.feedId}/comments/${commentDelete.commentId}/`, getters.config)
         .then ( () => {
           console.log('댓글삭제')
+          dispatch('fetchFeeds')
         })
         .catch(err => console.log(err.response.data))
     },

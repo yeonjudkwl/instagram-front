@@ -13,8 +13,8 @@
     <div class="comment-form">
       <!-- <label for="contentComment" class="a11y-hidden">comment: </label> -->
       <!-- id="contentComment" -->
-      <input @keypress.enter="createComments(commentData)" v-model="commentData.content" type="text" class="comment"  placeholder="댓글달기">
-      <button @click="createComments(commentData)" class="comment-btn">게시</button>
+      <input @keypress.enter="createComments(commentData);resetContent()" v-model="commentData.content" type="text" class="comment"  placeholder="댓글달기">
+      <button @click="createComments(commentData);resetContent()" class="comment-btn">게시</button>
     </div>
   </div>
 </template>
@@ -37,6 +37,9 @@ export default {
   },
   methods: {
     ...mapActions(['createComments', 'fetchUserInfo', 'deleteComment']),
+    resetContent () {
+      this.commentData.content = null
+    }
   },
 }
 </script>

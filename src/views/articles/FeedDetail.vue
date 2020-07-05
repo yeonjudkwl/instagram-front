@@ -17,6 +17,8 @@
         </div>
       </div>
     </div>
+    <hr>
+    <MyFeed />
   </div>
 </template>
 
@@ -26,6 +28,7 @@ import FeedImg from '@/components/articles/FeedImg.vue'
 import FeedLogo from '@/components/articles/FeedLogo.vue'
 import FeedComment from '@/components/articles/FeedComment.vue'
 import FeedCommentForm from '@/components/articles/FeedCommentForm.vue'
+import MyFeed from '@/components/articles/MyFeed.vue'
 
 export default {
   name: 'FeedDetail',
@@ -34,7 +37,8 @@ export default {
     FeedImg,
     FeedLogo,
     FeedComment,
-    FeedCommentForm
+    FeedCommentForm,
+    MyFeed,
   },
   computed: {
     feed () {
@@ -47,6 +51,7 @@ export default {
 <style scoped>
 .feed-detail-wrap {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -74,5 +79,10 @@ export default {
   position: absolute;
   bottom: 0;
   width: 100%;
+}
+hr {
+  margin: 25px 0;
+  width: 50%;
+  color: #DBDBDB;
 }
 </style>

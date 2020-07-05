@@ -10,6 +10,7 @@ import ProfileUpdate from '../views/accounts/ProfileUpdate.vue'
 import FeedList from '../views/articles/FeedList.vue'
 import FeedCreate from '../views/articles/FeedCreate.vue'
 import FeedUpdate from '../views/articles/FeedUpdate.vue'
+import FeedDetail from '../views/articles/FeedDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -53,6 +54,11 @@ Vue.use(VueRouter)
     path: '/articles/create',
     name: 'FeedCreate',
     component: FeedCreate
+  },
+  {
+    path: '/articles/:id',
+    name: 'FeedDetail',
+    component: FeedDetail
   },
   {
     path: '/articles/:id/update',

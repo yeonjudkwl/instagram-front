@@ -12,7 +12,7 @@
     </div>
     <!-- 모달 -->
     <div :id="'modal'+feed.id" class="modal-box">
-      <p><router-link :to="{ name: 'FeedUpdate', params: { id: feed.id } }">수정</router-link></p>
+      <p><router-link :to="{ name: 'FeedUpdate', params: { id: feed.id, img: url } }">수정</router-link></p>
       <p @click="deleteFeed(feed.id)">삭제</p>
       <p>게시물로 이동</p>
       <p>프로필 수정</p>

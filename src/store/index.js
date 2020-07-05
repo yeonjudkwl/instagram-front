@@ -157,10 +157,11 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err.response.data))
     },
-    deleteFeed ({ getters }, feedId ) {
+    deleteFeed ({ getters, dispatch }, feedId ) {
       axios.delete(SERVER.URL + `/articles/${feedId}/`, getters.config)
         .then ( () => {
           console.log('피드삭제')
+          dispatch('fetchFeeds')
         }) 
         .catch(err => console.log(err.response.data))
     },

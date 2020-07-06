@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class="comment-body">
-      <comment :cmt="cmt" :feed="feed" v-for="cmt in comments" :key="cmt.id"/>
+      <comment @get-comments="fetchComments" :cmt="cmt" :feed="feed" v-for="cmt in comments" :key="cmt.id"/>
     </ul>
   </div>
 </template>
@@ -25,9 +25,10 @@ export default {
     }
   },
   methods: {
-    fetchComments () {
+    fetchComments (val) {
       axios.get(SERVER.URL + `/articles/${this.feed.id}/comments/`)
         .then ( res => {
+          console.log(val)
           this.comments = res.data
         })
         .catch(err => console.log(err.response.data))
@@ -36,6 +37,9 @@ export default {
   created () {
     this.fetchComments()
   },
+  updated () {
+    // this.fetchComments()
+  }
 }
 </script>
 

@@ -19,8 +19,7 @@
     </div>
     <hr>
     <div class="profile-feeds">
-      {{feed}}
-      <div v-for="f in feed.user.feed_set" :key="f.id" class="profile-feed">
+      <div v-for="f in detail.user.feed_set" :key="f.id" class="profile-feed">
         <div v-for="img in f.images" :key="img.id">
           <img :src="'http://127.0.0.1:8000'+ img.image" alt="feed-image">
         </div>
@@ -30,6 +29,8 @@
 </template>
 
 <script>
+import SERVER from '@/api/drf'
+import axios from 'axios'
 import FeedTitle from '@/components/articles/FeedTitle.vue'
 import FeedImg from '@/components/articles/FeedImg.vue'
 import FeedLogo from '@/components/articles/FeedLogo.vue'
@@ -45,10 +46,27 @@ export default {
     FeedComment,
     FeedCommentForm,
   },
+  data () {
+    return {
+      detail: null
+    }
+  },
   computed: {
     feed () {
       return this.$route.params.feed
     } 
+  },
+  methods: {
+    fetchFeed () {
+      axios.get(SERVER.URL + `/articles/${this.feed.id}/`)
+        .then ( res => {
+          this.detail = res.data
+        })
+        .catch(err => console.log(err.response.data))
+    }
+  },
+  created () {
+    this.fetchFeed()
   }
 }
 </script>

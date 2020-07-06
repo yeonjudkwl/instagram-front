@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 import cookies from 'vue-cookies'
 import axios from 'axios'
 import router from '@/router/index'
-// // domain
+// domain
 import SERVER from '@/api/drf'
 
 Vue.use(Vuex)
@@ -15,7 +15,6 @@ export default new Vuex.Store({
     feeds: null,
     username: cookies.get('username'),
     userInfo: null,
-    // isFollower: false,
   },
   getters: {
     isLoggedIn: state => !!state.authToken,
@@ -41,18 +40,6 @@ export default new Vuex.Store({
     SET_USERINFO (state, payload) {
       state.userInfo = payload
     },
-    // isFollowers (state) {
-    //   if (state.userInfo.followers) {
-    //     console.log(state.userInfo.followers)
-    //     state.userInfo.followers.forEach( data => {
-    //       if (data.username === state.username) {
-    //         state.isFollower = true
-    //       }else {
-    //         state.isFollower = false
-    //       }
-    //     })
-    //   }
-    // },
   },
   actions: {
     postAuthData({ commit }, payload) {

@@ -18,11 +18,13 @@
           </p>
           <span class="profile-follow">팔로워 <span class="profile-follow-cnt">{{ $store.state.userInfo.followers_count }}</span></span>
           <span class="profile-follow">팔로우 <span class="profile-follow-cnt">{{ $store.state.userInfo.following_count }}</span></span>
-          <small>{{ $store.state.userInfo.name }}</small><small>{{ this.gender }}</small>
-          <p>{{ $store.state.userInfo.description }}</p>
           <span v-if="isMyProfile">
-            <button @click="deleteUserInfo($store.state.userInfo.username)">회원 탈퇴</button>
+            <button @click="deleteUserInfo($store.state.userInfo.username)" class="profile-delete-btn">회원 탈퇴</button>
           </span>
+          <div class="profile-description">
+            <small v-if="$store.state.userInfo.name !== 'null' " >{{ $store.state.userInfo.name }}</small><small>{{ this.gender }}</small>
+            <p v-if="$store.state.userInfo.description !== 'null'" >{{ $store.state.userInfo.description }}</p>
+          </div>
         </div>
       </div>
       <hr>
@@ -99,12 +101,16 @@ export default {
 }
 .profile-header{
   display: flex;
-  width: 70%;
-  margin: 50px auto 100px;;
+  width: 60%;
+  margin: 50px auto;
 }
 .profile-img{
   flex: 1;
   margin-right: 50px;
+  text-align: center;
+}
+.profile-img img {
+  border-radius: 50%;
 }
 .profile-content{
   flex: 2;
@@ -120,6 +126,10 @@ export default {
   border: 1px solid rgb(177, 177, 177);
   border-radius: 4px;
   font-weight: bold;
+}
+.profile-update-btn a {
+  color: rgb(44, 62, 80);
+  text-decoration: none;
 }
 .profile-follow {
   margin-right: 35px;
@@ -150,8 +160,30 @@ export default {
 .profile-follow-cnt {
   font-weight: bold;
 }
+.profile-delete-btn {
+  margin: 0 10px;
+  padding: 5px 10px;
+  background: none;
+  border: 1px solid rgb(177, 177, 177);
+  border-radius: 4px;
+  font-size: 10px;
+  color: rgb(165, 165, 165);
+  cursor: pointer;
+}
+.profile-description {
+  margin: 20px 0;
+}
+.profile-description small {
+  margin-right: 20px;
+}
+.profile-description p{
+  margin: 10px 0;
+  font-size: 14px;
+}
 hr {
-  width: 70%;
+  width: 60%;
   margin: 0 auto;
+  border: none;
+  border-top:1px solid rgb(219, 219, 219);
 }
 </style>

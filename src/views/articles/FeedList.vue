@@ -5,53 +5,35 @@
     </div>
     <div class="sub-feed">
       <div class="profile">
-        <img src="@/assets/images/hong.png" alt="" class="story_img">
-        <p>yeonju</p>
-      </div>
-      <!-- Story목록이 들어갑니다. -->      
-      <div class="story">
-        <div class="story_title">
-          <p>스토리</p>
-          <p><b>모두 보기</b></p>
+        <img src="@/assets/images/hong.png" alt="" class="banner-img">
+        <div>
+          <p>{{ $store.state.username }}</p>
+          <small>{{ $store.state.userInfo.name }}</small>
         </div>
-        <!-- story를 업로드 한 user의 프로필 사진과 이름이 들어갑니다. -->
-        <div class="story_content">
-          <img src="@/assets/images/hong.png" alt="" class="story_img">
-          <p>User name</p>
-        </div>
-        <div class="story_content">
-          <img src="@/assets/images/hong.png" alt="" class="story_img">
-          <p>User name</p>
-        </div>
-        <div class="story_content">
-          <img src="@/assets/images/hong.png" alt="" class="story_img">
-          <p>User name</p>
-        </div>
-        <div class="story_content">
-          <img src="@/assets/images/hong.png" alt="" class="story_img">
-          <p>User name</p>
-        </div>
-      </div>      
-      <div class="story">
-        <div class="story_title">
+      </div>       
+      <div class="banner">
+        <div class="banner-title">
           <p>회원님을 위한 추천</p>
           <p><b>모두 보기</b></p>
         </div>
-        <!-- story를 업로드 한 user의 프로필 사진과 이름이 들어갑니다. -->
-        <div class="story_content">
-          <img src="@/assets/images/hong.png" alt="" class="story_img">
+        <div class="banner-content">
+          <img src="@/assets/images/hong.png" alt="" class="banner-img">
           <p>User name</p>
         </div>
-        <div class="story_content">
-          <img src="@/assets/images/hong.png" alt="" class="story_img">
+        <div class="banner-content">
+          <img src="@/assets/images/hong.png" alt="" class="banner-img">
           <p>User name</p>
         </div>
-        <div class="story_content">
-          <img src="@/assets/images/hong.png" alt="" class="story_img">
+        <div class="banner-content">
+          <img src="@/assets/images/hong.png" alt="" class="banner-img">
           <p>User name</p>
         </div>
-        <div class="story_content">
-          <img src="@/assets/images/hong.png" alt="" class="story_img">
+        <div class="banner-content">
+          <img src="@/assets/images/hong.png" alt="" class="banner-img">
+          <p>User name</p>
+        </div>
+        <div class="banner-content">
+          <img src="@/assets/images/hong.png" alt="" class="banner-img">
           <p>User name</p>
         </div>
       </div>  
@@ -111,37 +93,42 @@ export default {
     margin: 5px 15px;
     font-size: 20px;
 }
-.story{
+.profile small{
+  margin-left: 15px;
+}
+.banner{
     width: 250px;
-    height: 170px;
+    height: 320px;
     margin: 20px 5px;
     padding: 10px;
     border: 1px solid #DBDBDB;
     border-radius: 3px;
-    overflow: auto;             /* div의 크기보다 내용이 더 많으면 스크롤이 생기게 해줍니다.*/
+    overflow: auto;            
 }
-.story_title{
+.banner-title{
     display:flex;
     justify-content: space-between;
+    margin-bottom: 20px;
 }
-.story_title p:nth-child(1){    /*`class="story_title"`의 첫 번째 `p`를 가리킵니다.("스토리")*/
+.banner-title p:nth-child(1){   
     color: #999999;
     font-size: 14px;
 }
-.story_title p:nth-child(2){    /*`class="story_title"`의 두 번째 `p`를 가리킵니다.("모두 보기")*/
+.banner-title p:nth-child(2){  
     color: #262626;
     font-size: 12px;
 }
-.story_img{
+.banner-img{
     width: 40px;
     height: 40px;
     border-radius: 50%;
 }
-.story_content{
+.banner-content{
     display: flex;
+    align-items: center;
     margin: 10px;
 }
-.story_content p{
+.banner-content p{
     margin: 5px 15px;
     font-size: 16px;
 }

@@ -3,10 +3,10 @@
     <span @click="fetchUserInfoPushProfile(cmt.user.username)" class="comment-user">{{ cmt.user.username}}</span>
     {{ cmt.content }}
     {{ cmt.like_users }}
-    <i v-if="isLikeUser" @click="unlikeComment({ feedId:feed.id, commentId:cmt.id });isLike();get" class="fas fa-heart heart-color"></i>
-    <i v-else @click="likeComment({ feedId:feed.id, commentId:cmt.id });isLike();get" class="far fa-heart"></i>
+    <i v-if="isLikeUser" @click="unlikeComment({ feedId:feed.id, commentId:cmt.id });isLike()" class="fas fa-heart heart-color"></i>
+    <i v-else @click="likeComment({ feedId:feed.id, commentId:cmt.id });isLike()" class="far fa-heart"></i>
     <i v-if="$store.state.username === cmt.user.username" 
-        @click="deleteComment({ feedId:feed.id, commentId:cmt.id });get" 
+        @click="deleteComment({ feedId:feed.id, commentId:cmt.id })" 
         class="fas fa-times comment-delete" >
     </i>
   </li>
@@ -39,9 +39,6 @@ export default {
     },
     isLike () {
       this.isLikeUser = !this.isLikeUser
-    },
-    get () {
-      this.$emit('get-comments','aaa')
     }
   },
   created () {

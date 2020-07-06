@@ -34,6 +34,9 @@ export default new Vuex.Store({
     SET_USERNAME (state, payload) {
       cookies.set('username', payload)
     },
+    GET_USERNAME (state) {
+      state.username = cookies.get('username')
+    },
     SET_FEEDS (state, payload) {
       state.feeds = payload
     },
@@ -47,6 +50,7 @@ export default new Vuex.Store({
         .then(res => {
           commit('SET_TOKEN', res.data.key)
           commit('SET_USERNAME', payload.data.username)
+          commit('GET_USERNAME')
           router.push({ name: 'FeedList' })
         })
         .catch(err => console.log(err.response.data))

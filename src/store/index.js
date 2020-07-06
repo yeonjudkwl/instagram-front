@@ -207,6 +207,20 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err.response.data))
     },
+    likeComment ({ getters }, commentData) {
+      axios.post(SERVER.URL + `/articles/${commentData.feedId}/comments/${commentData.commentId}/like/`, null, getters.config)
+        .then( () => {
+          console.log('like')
+        })
+        .catch(err => console.log(err.response.data))
+    },
+    unlikeComment ({ getters }, commentData) {
+      axios.post(SERVER.URL + `/articles/${commentData.feedId}/comments/${commentData.commentId}/unlike/`, null, getters.config)
+        .then( () => {
+          console.log('unlike')
+        })
+        .catch(err => console.log(err.response.data))
+    },
   },
   modules: {
   }

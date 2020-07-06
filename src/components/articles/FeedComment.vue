@@ -1,28 +1,40 @@
 <template>
   <div>
     <ul class="comment-body">
-      <li v-for="comment in feed.comments" :key="comment.id">
-        <span @click="fetchUserInfoPushProfile(comment.user.username)" class="comment-user">{{ comment.user.username}}</span>
-        {{ comment.content }}
-        <i v-if="$store.state.username === comment.user.username" 
-           @click="deleteComment({ feedId:feed.id, commentId:comment.id })" 
-           class="fas fa-times comment-delete" >
-        </i>
-      </li>
+      <comment :cmt="cmt" :feed="feed" v-for="cmt in comments" :key="cmt.id"/>
     </ul>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import SERVER from '@/api/drf'
+import axios from 'axios'
+import comment from '@/components/articles/comment.vue'
 
 export default {
   name: 'FeedComment',
+  components: {
+    comment,
+  },
   props: {
     feed: Object,
   },
+  data () {
+    return {
+      comments: null,
+    }
+  },
   methods: {
-    ...mapActions(['fetchUserInfoPushProfile', 'deleteComment']),
+    fetchComments () {
+      axios.get(SERVER.URL + `/articles/${this.feed.id}/comments/`)
+        .then ( res => {
+          this.comments = res.data
+        })
+        .catch(err => console.log(err.response.data))
+    },
+  },
+  created () {
+    this.fetchComments()
   },
 }
 </script>
@@ -35,17 +47,5 @@ export default {
 .comment-body li {
   margin: 5px;
   position: relative;
-}
-.comment-user {
-  margin-right: 8px;
-  font-weight: bold;
-  cursor: pointer;
-}
-.comment-delete {
-  position: absolute;
-  top: 0px;
-  right: 15px;
-  color: rgb(138, 138, 138);
-  cursor: pointer;
 }
 </style>

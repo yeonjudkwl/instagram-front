@@ -28,21 +28,23 @@
         </div>
       </div>
       <hr>
-      <MyFeed />
+      <div class="profile-feeds">
+        <div v-for="feed in $store.state.userInfo.feed_set" :key="feed.id" class="profile-feed">
+          <div v-for="img in feed.images" :key="img.id">
+            <img :src="'http://127.0.0.1:8000'+ img.image" alt="feed-image">
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import SERVER from '@/api/drf'
-import MyFeed from '@/components/articles/MyFeed.vue'
 import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'Profile',
-  components: {
-    MyFeed,
-  },
   data () {
     return {
       isFollower: false,
@@ -185,5 +187,28 @@ hr {
   margin: 0 auto;
   border: none;
   border-top:1px solid rgb(219, 219, 219);
+}
+.profile-feeds{
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+.profile-feed{
+  width: 200px;
+  margin: 13px;
+}
+.profile-feed img{
+  width: 100%;
+}
+@media screen and (max-width: 1000px) {
+  .profile-feed{
+    flex: 25%;
+    margin: 4%;
+  }
+  .profile-feed img{
+    width: 100%;
+  }
 }
 </style>

@@ -19,7 +19,6 @@
         <!-- <router-link v-if="isLoggedIn" :to="{ name: 'Profile', params:{ username: username} }" >Profile</router-link> | -->
         <router-link v-if="isLoggedIn"  :to="{ name: 'Logout' }">Logout</router-link>
       </nav>
-      {{username}}
     </header>
     
     <router-view/>

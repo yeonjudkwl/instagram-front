@@ -18,7 +18,14 @@
       </div>
     </div>
     <hr>
-    <MyFeed />
+    <div class="profile-feeds">
+      {{feed}}
+      <div v-for="f in feed.user.feed_set" :key="f.id" class="profile-feed">
+        <div v-for="img in f.images" :key="img.id">
+          <img :src="'http://127.0.0.1:8000'+ img.image" alt="feed-image">
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -28,7 +35,6 @@ import FeedImg from '@/components/articles/FeedImg.vue'
 import FeedLogo from '@/components/articles/FeedLogo.vue'
 import FeedComment from '@/components/articles/FeedComment.vue'
 import FeedCommentForm from '@/components/articles/FeedCommentForm.vue'
-import MyFeed from '@/components/articles/MyFeed.vue'
 
 export default {
   name: 'FeedDetail',
@@ -38,7 +44,6 @@ export default {
     FeedLogo,
     FeedComment,
     FeedCommentForm,
-    MyFeed,
   },
   computed: {
     feed () {
@@ -84,5 +89,28 @@ hr {
   margin: 25px 0;
   width: 50%;
   color: #DBDBDB;
+}
+.profile-feeds{
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+.profile-feed{
+  width: 200px;
+  margin: 13px;
+}
+.profile-feed img{
+  width: 100%;
+}
+@media screen and (max-width: 1000px) {
+  .profile-feed{
+    flex: 25%;
+    margin: 4%;
+  }
+  .profile-feed img{
+    width: 100%;
+  }
 }
 </style>

@@ -8,7 +8,7 @@
         <img src="@/assets/images/hong.png" alt="" class="banner-img">
         <div>
           <p>{{ $store.state.username }}</p>
-          <small>{{ $store.state.userInfo.name }}</small>
+          <small v-if="$store.state.userInfo">{{ $store.state.userInfo.name }}</small>
         </div>
       </div>       
       <div class="banner">

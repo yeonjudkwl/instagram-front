@@ -10,7 +10,8 @@
         <label for="image" class="a11y-hidden">image: </label>
         <input type="file" ref="feedimage" @change="fetchFile" id="image">
       </div>
-      <button class="feed-create-btn" @click="create(feedData)"><i class="fas fa-cloud-upload-alt fa-2x"></i></button>
+      <p v-if="message">{{ message }}</p>
+      <button class="feed-create-btn" @click="checkFeedData()"><i class="fas fa-cloud-upload-alt fa-2x"></i></button>
     </div>
   </div>
 </template>
@@ -25,13 +26,21 @@ export default {
         feedData: {
           content: null,
           file: null,
-        }
+        },
+        message: null,
     }
   },
   methods: {
     ...mapActions(['create']),
     fetchFile () {
       this.feedData.file = this.$refs.feedimage.files[0]
+    },
+    checkFeedData () {
+      if (this.feedData.content === null || this.feedData.file === null) {
+        this.message = '필수값을 입력하세요 :)'
+      } else {
+        this.create(this.feedData)
+      }
     }
   },
 }

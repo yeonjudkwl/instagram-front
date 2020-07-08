@@ -9,9 +9,13 @@
       </div>
       <div>
         <label for="password" class="a11y-hidden">password: </label>
-        <input @keyup.enter="login(loginData)" v-model="loginData.password" type="password" id="password" placeholder="비밀번호" class="accounts-input">
+        <input @keyup.enter="checkData" v-model="loginData.password" type="password" id="password" placeholder="비밀번호" class="accounts-input">
       </div>
-      <button @click="login(loginData)" class="accounts-btn">로그인</button>
+      <div v-if="$store.state.message">
+        <p class="error-msg" v-for="(msg, idx) in $store.state.message" :key="idx">{{ msg[0] }}</p>
+      </div>
+      <p v-if="message" class="error-msg">{{ message }}</p>
+      <button @click="checkData" class="accounts-btn">로그인</button>
     </div>
     <div class="signup-wrap">
       <p>계정이 없으신가요? <router-link :to="{ name: 'SignUp' }"><span class="accounts-text">가입하기</span></router-link></p>
@@ -30,10 +34,19 @@ export default {
         username: null,
         password: null,
       },
+      message: null,
     }
   },
   methods: {
-    ...mapActions(['login'])
+    ...mapActions(['login']),
+    checkData () {
+      if (this.loginData.username === null || this.loginData.password === null) {
+        this.message = '필수값을 입력해주세요 :)'
+      } else {
+        this.message = null
+        this.login(this.loginData)
+      }
+    }
   }
 }
 </script>
@@ -57,5 +70,12 @@ export default {
 }
 .signup-wrap a{
   text-decoration: none;
+}
+.error-msg {
+  width: 90%;
+  margin: 0 auto;
+  padding: 5px 0;
+  font-size: 10px;
+  background:rgb(255, 243, 205);
 }
 </style>

@@ -22,7 +22,8 @@
         <label for="description" class="a11y-hidden">description: </label>
         <input v-model="profileData.description" type="text" id="description" placeholder="본인을 소개하세요">
       </div>
-      <button class="profile-update-btn" @click="updateUserInfo({username: $store.state.username, profileData: profileData})"><i class="fas fa-cloud-upload-alt fa-2x"></i></button>
+      <p v-if="message" class="error-msg">{{ message }}</p>
+      <button class="profile-update-btn" @click="checkData"><i class="fas fa-cloud-upload-alt fa-2x"></i></button>
     </div>
   </div>
 </template>
@@ -34,18 +35,27 @@ export default {
   name: 'ProfileUpdate',
   data () {
     return {
-        profileData: {
-          file: null,
-          name: null,
-          gender: null,
-          description: null,
-        }
+      profileData: {
+        file: null,
+        name: null,
+        gender: null,
+        description: null,
+      },
+        message: null,
     }
   },
   methods: {
     ...mapActions(['updateUserInfo']),
     fetchFile () {
       this.profileData.file = this.$refs.feedimage.files[0]
+    },
+    checkData () {
+      if (this.profileData.file === null || this.profileData.gender === null) {
+        this.message = '필수값을 입력해주세요 :)'
+      } else {
+        this.message = null
+        this.updateUserInfo({username: this.$store.state.username, profileData: this.profileData})
+      }
     }
   },
 }
@@ -106,5 +116,12 @@ export default {
 .profile-update-btn i:hover{
   transform: scale(1.3);
   color: rgb(53, 150, 255);
+}
+.error-msg {
+  width: 90%;
+  margin: 0 auto;
+  padding: 5px 0;
+  font-size: 10px;
+  background:rgb(255, 243, 205);
 }
 </style>

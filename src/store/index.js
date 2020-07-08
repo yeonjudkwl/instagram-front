@@ -15,6 +15,7 @@ export default new Vuex.Store({
     feeds: null,
     username: cookies.get('username'),
     userInfo: null,
+    message: null,
   },
   getters: {
     isLoggedIn: state => !!state.authToken,
@@ -43,6 +44,9 @@ export default new Vuex.Store({
     SET_USERINFO (state, payload) {
       state.userInfo = payload
     },
+    SET_MSG (state, payload) {
+      state.message = payload
+    }
   },
   actions: {
     postAuthData({ commit }, payload) {
@@ -53,7 +57,10 @@ export default new Vuex.Store({
           commit('GET_USERNAME')
           router.push({ name: 'FeedList' })
         })
-        .catch(err => console.log(err.response.data))
+        .catch(err => {
+          commit('SET_MSG', err.response.data)
+          console.log(err.response.data)
+        })
     },
     signup ({ dispatch }, signupData) {
       const info = {

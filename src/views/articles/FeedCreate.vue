@@ -10,7 +10,7 @@
         <label for="image" class="a11y-hidden">image: </label>
         <input type="file" ref="feedimage" @change="fetchFile" id="image">
       </div>
-      <p v-if="message">{{ message }}</p>
+      <p v-if="message" class="feed-error-msg">{{ message }}</p>
       <button class="feed-create-btn" @click="checkFeedData()"><i class="fas fa-cloud-upload-alt fa-2x"></i></button>
     </div>
   </div>
@@ -37,7 +37,7 @@ export default {
     },
     checkFeedData () {
       if (this.feedData.content === null || this.feedData.file === null) {
-        this.message = '필수값을 입력하세요 :)'
+        this.message = '필수값을 입력해주세요 :)'
       } else {
         this.create(this.feedData)
       }
@@ -100,5 +100,11 @@ export default {
 .feed-create-btn i:hover{
   transform: scale(1.3);
   color: rgb(53, 150, 255);
+}
+.feed-error-msg {
+  width: 90%;
+  margin: 0 auto;
+  padding: 5px 0;
+  background:rgb(255, 243, 205);
 }
 </style>

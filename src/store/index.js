@@ -15,6 +15,7 @@ export default new Vuex.Store({
     feeds: null,
     username: cookies.get('username'),
     userInfo: null,
+    searched: null,
     message: null,
   },
   getters: {
@@ -43,6 +44,9 @@ export default new Vuex.Store({
     },
     SET_USERINFO (state, payload) {
       state.userInfo = payload
+    },
+    SET_SEARCHED (state, payload) {
+      state.searched = payload
     },
     SET_MSG (state, payload) {
       state.message = payload
@@ -228,6 +232,15 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err.response.data))
     },
+    search ({ commit }, searchData) {
+      axios.get(SERVER.URL + SERVER.ROUTES.search + searchData)
+        .then( res => {
+          console.log(res.data)
+          commit('SET_SEARCHED', res.data)
+          router.push({ name: 'Search' })
+        })
+        .catch(err => console.log(err.response.data))
+    }
   },
   modules: {
   }

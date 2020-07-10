@@ -57,8 +57,8 @@ export default {
     } 
   },
   methods: {
-    fetchFeed () {
-      axios.get(SERVER.URL + `/articles/${this.feed.id}/`)
+    fetchFeed (feedId) {
+      axios.get(SERVER.URL + `/articles/${feedId}/`)
         .then ( res => {
           this.detail = res.data
         })
@@ -66,7 +66,7 @@ export default {
     }
   },
   created () {
-    this.fetchFeed()
+    this.fetchFeed(this.feed.id)
   }
 }
 </script>

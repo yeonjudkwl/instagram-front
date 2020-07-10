@@ -6,7 +6,7 @@
       </div>
       <div class="search">
         <label for="search" class="a11y-hidden">search: </label>
-        <input type="text" id="search" value="검색">
+        <input @keypress.enter="search(searchData);reset()" v-model="searchData" type="search" id="search" placeholder="검색">
       </div>
       <nav id="nav">
         <router-link :to="{ name: 'FeedList' }"><i class="logo_img fas fa-house-user"></i></router-link>
@@ -29,12 +29,20 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'App',
+  data () {
+    return {
+      searchData: null,
+    }
+  },
   computed: {
     ...mapState(['username']),
     ...mapGetters(['isLoggedIn']),
   },
   methods: {
-    ...mapActions(['fetchUserInfoPushProfile'])
+    ...mapActions(['fetchUserInfoPushProfile', 'search']),
+    reset () {
+      this.searchData = null
+    }
   },
 }
 </script>

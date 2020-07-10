@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class="comment-body">
-      <comment :cmt="cmt" :feed="feed" v-for="cmt in comments" :key="cmt.id"/>
+      <comment :cmt="cmt" :feed="feed" v-for="cmt in feed.comments" :key="cmt.id"/>
     </ul>
   </div>
 </template>

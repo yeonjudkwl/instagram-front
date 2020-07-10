@@ -1,13 +1,15 @@
 <template>
-  
+    <div>
+        {{ $store.state.searched }}
+    </div>
 </template>
 
 <script>
 export default {
-  name: 'MyFeed',
+
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>

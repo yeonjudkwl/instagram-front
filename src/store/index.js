@@ -113,6 +113,7 @@ export default new Vuex.Store({
       formdata.append('name', updateData.profileData.name)
       formdata.append('gender', updateData.profileData.gender)
       formdata.append('description', updateData.profileData.description)
+      formdata.append('is_private', updateData.profileData.is_private)
 
       axios.put(SERVER.URL + `/accounts/${updateData.username}/`, formdata, getters.imgConfig)
         .then ( res => {

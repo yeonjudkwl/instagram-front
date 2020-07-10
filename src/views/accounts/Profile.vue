@@ -25,6 +25,7 @@
             <small v-if="$store.state.userInfo.name !== 'null' " >{{ $store.state.userInfo.name }}</small><small>{{ this.gender }}</small>
             <p v-if="$store.state.userInfo.description !== 'null'" >{{ $store.state.userInfo.description }}</p>
           </div>
+          {{ this.is_pravate }}
         </div>
       </div>
       <hr>
@@ -49,6 +50,7 @@ export default {
     return {
       isFollower: false,
       gender: null,
+      is_pravate: null,
     }
   },
   computed: {
@@ -84,9 +86,17 @@ export default {
         this.gender = null
       }
     },
+    fetchPrivate () {
+      if (this.$store.state.userInfo.is_private === false) {
+        this.is_pravate = '비공개 계정입니다.'
+      }else {
+        this.is_pravate = null
+      }
+    }
   },
   created () {
-    this.fetchGender()
+    this.fetchGender(),
+    this.fetchPrivate()
   },
   mounted () {
     this.isFollowers()

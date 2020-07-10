@@ -22,6 +22,14 @@
         <label for="description" class="a11y-hidden">description: </label>
         <input v-model="profileData.description" type="text" id="description" placeholder="본인을 소개하세요">
       </div>
+      <div>
+        <label for="true" >공개 </label>
+        <input v-model="profileData.is_private" type="radio" name="private" id="true" value="true">
+      </div>
+      <div>
+        <label for="false" >비공개 </label>
+        <input v-model="profileData.is_private" type="radio" name="private" id="false" value="false">
+      </div>
       <p v-if="message" class="error-msg">{{ message }}</p>
       <button class="profile-update-btn" @click="checkData"><i class="fas fa-cloud-upload-alt fa-2x"></i></button>
     </div>
@@ -40,6 +48,7 @@ export default {
         name: null,
         gender: null,
         description: null,
+        is_private: null,
       },
         message: null,
     }
@@ -50,7 +59,7 @@ export default {
       this.profileData.file = this.$refs.feedimage.files[0]
     },
     checkData () {
-      if (this.profileData.file === null || this.profileData.gender === null) {
+      if (this.profileData.file === null || this.profileData.gender === null || this.profileData.is_private === null) {
         this.message = '필수값을 입력해주세요 :)'
       } else {
         this.message = null

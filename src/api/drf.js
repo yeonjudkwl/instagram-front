@@ -5,6 +5,6 @@ export default {
         login: '/rest-auth/login/',
         logout: '/rest-auth/logout/',
         feeds: '/articles/',
-        search: '/articles/search/?search=',
+        search: '/articles/search?search=',
     }
 }

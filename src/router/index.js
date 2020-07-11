@@ -11,7 +11,8 @@ import FeedList from '../views/articles/FeedList.vue'
 import FeedCreate from '../views/articles/FeedCreate.vue'
 import FeedUpdate from '../views/articles/FeedUpdate.vue'
 import FeedDetail from '../views/articles/FeedDetail.vue'
-import Search from '../views/articles/Search.vue'
+import SearchUser from '../views/articles/SearchUser.vue'
+import SearchTag from '../views/articles/SearchTag.vue'
 
 Vue.use(VueRouter)
 
@@ -67,9 +68,14 @@ Vue.use(VueRouter)
     component: FeedUpdate
   },
   {
-    path: '/articles/search',
-    name: 'Search',
-    component: Search
+    path: '/articles/searchUser',
+    name: 'SearchUser',
+    component: SearchUser
+  },
+  {
+    path: '/articles/searchTag',
+    name: 'SearchTag',
+    component: SearchTag
   },
 ]
 

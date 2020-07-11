@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <li v-for="result in $store.state.searched" :key="result.id">
+    <li @click="fetchUserInfoPushProfile(result.username)" v-for="result in $store.state.searched" :key="result.id">
       <div class="li-wrap">
         <div class="li-img"> 
           <img :src="'http://127.0.0.1:8000'+result.profile_photo" alt="profile">
@@ -15,8 +15,13 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
- name: 'Search.vue',
+ name: 'SearchUser.vue',
+ methods: {
+    ...mapActions(['fetchUserInfoPushProfile']),
+ }
 }
 </script>
 

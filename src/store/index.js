@@ -283,7 +283,7 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err.response.data))
     },
-    search({ commit }, searchData)
+    searchUser({ commit }, searchData)
     {
       axios.get(SERVER.URL + SERVER.ROUTES.search, {
         params: {
@@ -294,7 +294,22 @@ export default new Vuex.Store({
         {
           console.log(res.data)
           commit('SET_SEARCHED', res.data)
-          router.push({ name: 'Search' })
+          router.push({ name: 'SearchUser' })
+        })
+        .catch(err => console.log(err.response.data))
+    },
+    searchTag({ commit }, searchData)
+    {
+      axios.get(SERVER.URL + SERVER.ROUTES.search, {
+        params: {
+          search: searchData
+        }
+      })
+        .then(res =>
+        {
+          console.log(res.data)
+          commit('SET_SEARCHED', res.data)
+          router.push({ name: 'SearchTag' })
         })
         .catch(err => console.log(err.response.data))
     }

@@ -6,7 +6,7 @@
       </div>
       <div class="search">
         <label for="search" class="a11y-hidden">search: </label>
-        <input @keypress.enter="search(searchData);reset()" v-model="searchData" type="search" id="search" placeholder="검색">
+        <input @keypress.enter="check();reset()" v-model="searchData" type="search" id="search" placeholder="검색">
       </div>
       <nav id="nav">
         <router-link :to="{ name: 'FeedList' }"><i class="logo_img fas fa-house-user"></i></router-link>
@@ -39,7 +39,14 @@ export default {
     ...mapGetters(['isLoggedIn']),
   },
   methods: {
-    ...mapActions(['fetchUserInfoPushProfile', 'search']),
+    ...mapActions(['fetchUserInfoPushProfile', 'searchUser', 'searchTag']),
+    check () {
+      if (this.searchData[0] === '#') {
+        this.searchTag(this.searchData)
+      } else {
+        this.searchUser(this.searchData)
+      }
+    }, 
     reset () {
       this.searchData = null
     }

@@ -20,9 +20,15 @@
     <hr />
     <div class="profile-feeds">
       <div v-for="f in detail.user.feed_set" :key="f.id" class="profile-feed">
-        <div v-for="img in f.images" :key="img.id">
-          <img :src="'http://127.0.0.1:8000'+ img.image" alt="feed-image" />
-        </div>
+        <router-link :to="{ name: 'FeedDetail', params: { id: feed.id } }">
+          <div v-for="img in f.images" :key="img.id">
+            <img :src="'http://127.0.0.1:8000'+ img.image" alt="feed-image" class="profile-feed-img">
+            <div class="profile-feed-img-hover">
+              <span><i class="fas fa-heart"></i>{{ feed.like_count }}</span>
+              <span><i class="fas fa-comment"></i>{{ feed.comment_count }}</span>
+            </div>
+          </div>
+        </router-link>
       </div>
     </div>
   </div>
@@ -109,19 +115,46 @@ hr {
   width: 50%;
   color: #dbdbdb;
 }
-.profile-feeds {
+.profile-feeds{
   width: 70%;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   margin: 0 auto;
 }
-.profile-feed {
+.profile-feed{
   width: 200px;
   margin: 13px;
+  position: relative;
 }
-.profile-feed img {
+.profile-feed-img{
   width: 100%;
+  cursor: pointer;
+}
+.profile-feed-img-hover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  /* 원래 위치 없애기 */
+  position: absolute;
+  /* text 위로 옮기기 */
+  transform: translateY(-100%);
+  background: rgba(0, 0, 0);
+  color: rgb(255, 255, 255);
+  border-radius: 5px;
+  opacity: 0;
+  transition: .5s ease;
+}
+.profile-feed:hover .profile-feed-img-hover{
+  opacity: .4;
+}
+.profile-feed-img-hover span {
+  margin-right: 10px;
+}
+.profile-feed-img-hover i {
+  margin: 0 5px;
 }
 @media screen and (max-width: 1000px) {
   .profile-feed {

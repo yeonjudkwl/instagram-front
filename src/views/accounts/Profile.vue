@@ -25,15 +25,21 @@
             <small v-if="$store.state.userInfo.name !== 'null' " >{{ $store.state.userInfo.name }}</small><small>{{ this.gender }}</small>
             <p v-if="$store.state.userInfo.description !== 'null'" >{{ $store.state.userInfo.description }}</p>
           </div>
-          {{ this.is_pravate }}
+          {{ this.private_user }}
         </div>
       </div>
       <hr>
       <div class="profile-feeds">
         <div v-for="feed in $store.state.userInfo.feed_set" :key="feed.id" class="profile-feed">
-          <div v-for="img in feed.images" :key="img.id">
-            <img :src="'http://127.0.0.1:8000'+ img.image" alt="feed-image">
-          </div>
+          <router-link :to="{ name: 'FeedDetail', params: { id: feed.id } }">
+            <div v-for="img in feed.images" :key="img.id">
+              <img :src="'http://127.0.0.1:8000'+ img.image" alt="feed-image" class="profile-feed-img">
+              <div class="profile-feed-img-hover">
+                <span><i class="fas fa-heart"></i>{{ feed.like_count }}</span>
+                <span><i class="fas fa-comment"></i>{{ feed.comment_count }}</span>
+              </div>
+            </div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -50,7 +56,7 @@ export default {
     return {
       isFollower: false,
       gender: null,
-      is_pravate: null,
+      private_user: null,
     }
   },
   computed: {
@@ -87,10 +93,10 @@ export default {
       }
     },
     fetchPrivate () {
-      if (this.$store.state.userInfo.is_private === false) {
-        this.is_pravate = '비공개 계정입니다.'
+      if (this.$store.state.userInfo.private_user === true) {
+        this.private_user = '비공개 계정입니다.'
       }else {
-        this.is_pravate = null
+        this.private_user = null
       }
     }
   },
@@ -208,9 +214,36 @@ hr {
 .profile-feed{
   width: 200px;
   margin: 13px;
+  position: relative;
 }
-.profile-feed img{
+.profile-feed-img{
   width: 100%;
+  cursor: pointer;
+}
+.profile-feed-img-hover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  /* 원래 위치 없애기 */
+  position: absolute;
+  /* text 위로 옮기기 */
+  transform: translateY(-100%);
+  background: rgba(0, 0, 0);
+  color: rgb(255, 255, 255);
+  border-radius: 5px;
+  opacity: 0;
+  transition: .5s ease;
+}
+.profile-feed:hover .profile-feed-img-hover{
+  opacity: .4;
+}
+.profile-feed-img-hover span {
+  margin-right: 10px;
+}
+.profile-feed-img-hover i {
+  margin: 0 5px;
 }
 @media screen and (max-width: 1000px) {
   .profile-feed{

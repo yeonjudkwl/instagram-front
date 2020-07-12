@@ -23,12 +23,12 @@
         <input v-model="profileData.description" type="text" id="description" placeholder="본인을 소개하세요">
       </div>
       <div>
-        <label for="true" >공개 </label>
-        <input v-model="profileData.is_private" type="radio" name="private" id="true" value="true">
+        <label for="false" >공개 </label>
+        <input v-model="profileData.is_private" type="radio" name="private" id="false" value="false">
       </div>
       <div>
-        <label for="false" >비공개 </label>
-        <input v-model="profileData.is_private" type="radio" name="private" id="false" value="false">
+        <label for="true" >비공개 </label>
+        <input v-model="profileData.is_private" type="radio" name="private" id="true" value="true">
       </div>
       <p v-if="message" class="error-msg">{{ message }}</p>
       <button class="profile-update-btn" @click="checkData"><i class="fas fa-cloud-upload-alt fa-2x"></i></button>

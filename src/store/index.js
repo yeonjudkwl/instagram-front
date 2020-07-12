@@ -110,9 +110,9 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err.response.data))
     },
-    fetchUserInfoPushProfile({ commit }, username)
+    fetchUserInfoPushProfile({ getters, commit }, username)
     {
-      axios.get(SERVER.URL + `/accounts/${username}/`)
+      axios.get(SERVER.URL + `/accounts/${username}/`, getters.config)
         .then(res =>
         {
           commit('SET_USERINFO', res.data)
@@ -120,9 +120,9 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err.response.data))
     },
-    fetchUserInfo({ commit }, username)
+    fetchUserInfo({ getters, commit }, username)
     {
-      axios.get(SERVER.URL + `/accounts/${username}/`)
+      axios.get(SERVER.URL + `/accounts/${username}/`, getters.config)
         .then(res =>
         {
           commit('SET_USERINFO', res.data)
@@ -174,9 +174,9 @@ export default new Vuex.Store({
         })
         .catch(err => { console.log('업로드 실패', err) })
     },
-    fetchFeeds({ commit })
+    fetchFeeds({ getters, commit })
     {
-      axios.get(SERVER.URL + SERVER.ROUTES.feeds)
+      axios.get(SERVER.URL + SERVER.ROUTES.feeds, getters.config)
         .then(res =>
         {
           commit('SET_FEEDS', res.data)

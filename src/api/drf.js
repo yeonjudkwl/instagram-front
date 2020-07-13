@@ -6,5 +6,6 @@ export default {
         logout: '/rest-auth/logout/',
         feeds: '/articles/',
         search: '/articles/search',
+        notifications: '/notifications/',
     }
 }

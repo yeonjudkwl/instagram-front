@@ -12,6 +12,7 @@
         <router-link :to="{ name: 'FeedList' }"><i class="logo_img fas fa-house-user"></i></router-link>
         <router-link v-if="isLoggedIn" :to="{ name: 'FeedCreate' }"><i class="logo_img fas fa-plus-circle"></i></router-link>
         <a v-if="isLoggedIn" @click="fetchUserInfoPushProfile(username)"><i class="logo_img fas fa-user-circle"></i></a>
+        <button v-if="isLoggedIn" @click="fetchNotifications">알림</button>
         <!-- <router-link v-if="isLoggedIn" :to="{ name: 'FeedCreate' }"><i class="logo_img fas fa-plus"></i></router-link>
         <a v-if="isLoggedIn" @click="fetchUserInfo(username)"><i class="logo_img fas fa-user"></i></a> -->
         <router-link v-if="!isLoggedIn" :to="{ name: 'SignUp' }">SignUp</router-link>
@@ -39,7 +40,7 @@ export default {
     ...mapGetters(['isLoggedIn']),
   },
   methods: {
-    ...mapActions(['fetchUserInfoPushProfile', 'searchUser', 'searchTag']),
+    ...mapActions(['fetchUserInfoPushProfile', 'searchUser', 'searchTag', 'fetchNotifications']),
     check () {
       if (this.searchData[0] === '#') {
         this.searchTag(this.searchData)

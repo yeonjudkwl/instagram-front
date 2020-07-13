@@ -17,6 +17,7 @@ export default new Vuex.Store({
     userInfo: null,
     searched: null,
     message: null,
+    notifications: null,
   },
   getters: {
     isLoggedIn: state => !!state.authToken,
@@ -61,7 +62,11 @@ export default new Vuex.Store({
     SET_MSG(state, payload)
     {
       state.message = payload
-    }
+    },
+    SET_NOTI(state, payload)
+    {
+      state.notifications = payload
+    },
   },
   actions: {
     postAuthData({ commit }, payload)
@@ -312,7 +317,17 @@ export default new Vuex.Store({
           router.push({ name: 'SearchTag' })
         })
         .catch(err => console.log(err.response.data))
-    }
+    },
+    fetchNotifications({ getters, commit })
+    {
+      axios.get(SERVER.URL + SERVER.ROUTES.notifications, getters.config)
+        .then(res =>
+        {
+          console.log(res.data)
+          commit('SET_NOTI', res.data)
+        })
+        .catch(err => console.log(err.response.data))
+    },
   },
   modules: {
   }
